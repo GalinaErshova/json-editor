@@ -1,0 +1,23 @@
+/* ── JSON Editor Container ── */
+
+.editorContainer {
+  height: 100%;
+  min-height: 400px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.85rem;
+}
+
+/* Override CodeMirror theme to match admin panel */
+.editorContainer :global(.cm-editor) {
+  height: 100%;
+}
+
+.editorContainer :global(.cm-gutters) {
+  border-right: 1px solid var(--border);
+}
+
+.editorContainer :global(.cm-scroller) {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}

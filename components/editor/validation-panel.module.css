@@ -1,0 +1,100 @@
+/* ── Validation Panel ── */
+
+.container {
+  font-size: 0.82rem;
+}
+
+.loading,
+.idle {
+  padding: 0.75rem;
+  text-align: center;
+  opacity: 0.5;
+  font-size: 0.82rem;
+}
+
+/* ── Status Badge ── */
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.statusValid {
+  background: rgba(46, 204, 113, 0.12);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.statusInvalid {
+  background: rgba(231, 76, 60, 0.12);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.warningCount {
+  font-weight: 400;
+  opacity: 0.7;
+  font-size: 0.75rem;
+}
+
+/* ── Error/Warning List ── */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.errorItem,
+.warningItem {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+}
+
+.errorItem {
+  background: rgba(231, 76, 60, 0.07);
+  border-left: 3px solid #e74c3c;
+}
+
+.warningItem {
+  background: rgba(241, 196, 15, 0.07);
+  border-left: 3px solid #f1c40f;
+}
+
+.errorIcon {
+  color: #e74c3c;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  width: 1rem;
+  text-align: center;
+}
+
+.warningIcon {
+  color: #f1c40f;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  width: 1rem;
+  text-align: center;
+}
+
+.path {
+  font-size: 0.7rem;
+  opacity: 0.5;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.message {
+  line-height: 1.35;
+}
