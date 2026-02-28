@@ -1,0 +1,331 @@
+{
+  "meta": {
+    "id": "deep-nested-example",
+    "version": "1.0.0",
+    "title": "Deep Nested Structure Example",
+    "subtitle": "Testing complex JSON hierarchies",
+    "description": "Example with multiple levels of nesting",
+    "epoch": "contemporary",
+    "region": "Global",
+    "character": {
+      "name": "Test Character",
+      "role": "Developer",
+      "attributes": {
+        "skills": {
+          "technical": {
+            "programming": {
+              "languages": ["TypeScript", "Python", "Rust"],
+              "frameworks": {
+                "frontend": ["React", "Vue", "Svelte"],
+                "backend": ["Node.js", "Django", "FastAPI"]
+              },
+              "databases": {
+                "sql": ["PostgreSQL", "MySQL"],
+                "nosql": ["MongoDB", "Redis"],
+                "graph": ["Neo4j"]
+              }
+            },
+            "devops": {
+              "containers": ["Docker", "Kubernetes"],
+              "ci_cd": ["GitHub Actions", "GitLab CI"]
+            }
+          },
+          "soft": {
+            "communication": 9,
+            "teamwork": 8,
+            "leadership": 7
+          }
+        },
+        "experience": {
+          "years": 5,
+          "projects": [
+            {
+              "name": "Project Alpha",
+              "duration": "2 years",
+              "technologies": ["React", "Node.js"],
+              "team": {
+                "size": 5,
+                "members": [
+                  {"name": "Alice", "role": "Frontend"},
+                  {"name": "Bob", "role": "Backend"}
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "conflictType": "reform-vs-stability",
+    "difficulty": "hard",
+    "turnCount": 3,
+    "estimatedMinutes": 15,
+    "tags": ["example", "test", "deep-nesting"],
+    "locale": "en",
+    "author": {
+      "id": "test-author",
+      "name": "Test Author",
+      "verified": false
+    }
+  },
+  "briefing": {
+    "text": "This is an example with deeply nested JSON structure for testing the editor.",
+    "image": null,
+    "maxLength": 500
+  },
+  "params": [
+    {
+      "id": "complexity",
+      "name": "Complexity",
+      "icon": "🧩",
+      "color": "#3498db",
+      "startValue": 50,
+      "min": 0,
+      "max": 100,
+      "description": "System complexity level",
+      "thresholds": [
+        {"value": 80, "type": "danger", "label": "Too complex"}
+      ]
+    }
+  ],
+  "turns": [
+    {
+      "id": "turn_1",
+      "order": 1,
+      "event": {
+        "text": "Initial event with nested data structure",
+        "metadata": {
+          "tags": ["intro"],
+          "context": {
+            "location": {
+              "coordinates": {"lat": 51.5074, "lon": -0.1278},
+              "address": {
+                "street": "Test Street",
+                "city": "London",
+                "country": "UK"
+              }
+            }
+          }
+        }
+      },
+      "isCulmination": false,
+      "ai_override": false,
+      "choices": [
+        {
+          "id": "choice_1_1",
+          "title": "Simple choice",
+          "description": "Basic option",
+          "deltas": {"complexity": 10},
+          "impactPreview": {"complexity": "+10"},
+          "newspaper": {
+            "style": "decree",
+            "headline": "Decision Made",
+            "title": "Official Announcement",
+            "body": "The decision has been recorded.",
+            "ai_override": false,
+            "historicalComment": "N/A"
+          },
+          "nextTurnId": "turn_2"
+        },
+        {
+          "id": "choice_1_2",
+          "title": "Complex choice",
+          "description": "Advanced option with metadata",
+          "deltas": {"complexity": 20},
+          "impactPreview": {"complexity": "+20"},
+          "newspaper": {
+            "style": "decree",
+            "headline": "Complex Path",
+            "title": "Advanced Route",
+            "body": "A more complex path chosen.",
+            "ai_override": false,
+            "historicalComment": "N/A"
+          },
+          "nextTurnId": "turn_2",
+          "metadata": {
+            "prerequisites": ["skill_1", "skill_2"],
+            "consequences": {
+              "immediate": {"effect": "minor"},
+              "delayed": {
+                "turns": 2,
+                "effect": "major",
+                "triggers": ["event_x", "event_y"]
+              }
+            }
+          }
+        },
+        {
+          "id": "choice_1_3",
+          "title": "Abort",
+          "description": "Skip to end",
+          "deltas": {"complexity": -10},
+          "impactPreview": {"complexity": "-10"},
+          "newspaper": {
+            "style": "decree",
+            "headline": "Process Terminated",
+            "title": "Early Exit",
+            "body": "The process was terminated early.",
+            "ai_override": false,
+            "historicalComment": "N/A"
+          },
+          "endingIds": ["ending_early"]
+        }
+      ]
+    },
+    {
+      "id": "turn_2",
+      "order": 2,
+      "event": {
+        "text": "Second turn",
+        "nestedArray": [
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9]
+        ]
+      },
+      "isCulmination": false,
+      "ai_override": false,
+      "choices": [
+        {
+          "id": "choice_2_1",
+          "title": "Continue",
+          "description": "Keep going",
+          "deltas": {"complexity": 5},
+          "impactPreview": {"complexity": "+5"},
+          "newspaper": {
+            "style": "decree",
+            "headline": "Progress",
+            "title": "Continued",
+            "body": "The journey continues.",
+            "ai_override": false,
+            "historicalComment": "N/A"
+          },
+          "nextTurnId": "turn_3"
+        },
+        {
+          "id": "choice_2_2",
+          "title": "Alternative",
+          "description": "Try different approach",
+          "deltas": {"complexity": 15},
+          "impactPreview": {"complexity": "+15"},
+          "newspaper": {
+            "style": "decree",
+            "headline": "Alternative Route",
+            "title": "Different Path",
+            "body": "An alternative was chosen.",
+            "ai_override": false,
+            "historicalComment": "N/A"
+          },
+          "nextTurnId": "turn_3"
+        },
+        {
+          "id": "choice_2_3",
+          "title": "End now",
+          "description": "Finish early",
+          "deltas": {"complexity": 0},
+          "impactPreview": {"complexity": "0"},
+          "newspaper": {
+            "style": "decree",
+            "headline": "Conclusion",
+            "title": "Early Finish",
+            "body": "Finished ahead of schedule.",
+            "ai_override": false,
+            "historicalComment": "N/A"
+          },
+          "endingIds": ["ending_normal"]
+        }
+      ]
+    },
+    {
+      "id": "turn_3",
+      "order": 3,
+      "event": {
+        "text": "Final turn"
+      },
+      "isCulmination": true,
+      "ai_override": false,
+      "choices": [
+        {
+          "id": "choice_3_1",
+          "title": "Success",
+          "description": "Achieve goal",
+          "deltas": {"complexity": 10},
+          "impactPreview": {"complexity": "+10"},
+          "newspaper": {
+            "style": "decree",
+            "headline": "Victory",
+            "title": "Success",
+            "body": "Goal achieved.",
+            "ai_override": false,
+            "historicalComment": "N/A"
+          },
+          "endingIds": ["ending_success"]
+        },
+        {
+          "id": "choice_3_2",
+          "title": "Failure",
+          "description": "Fall short",
+          "deltas": {"complexity": -5},
+          "impactPreview": {"complexity": "-5"},
+          "newspaper": {
+            "style": "decree",
+            "headline": "Defeat",
+            "title": "Failure",
+            "body": "Goal not achieved.",
+            "ai_override": false,
+            "historicalComment": "N/A"
+          },
+          "endingIds": ["ending_failure"]
+        },
+        {
+          "id": "choice_3_3",
+          "title": "Compromise",
+          "description": "Partial success",
+          "deltas": {"complexity": 0},
+          "impactPreview": {"complexity": "0"},
+          "newspaper": {
+            "style": "decree",
+            "headline": "Mixed Results",
+            "title": "Compromise",
+            "body": "Partial achievement.",
+            "ai_override": false,
+            "historicalComment": "N/A"
+          },
+          "endingIds": ["ending_normal"]
+        }
+      ]
+    }
+  ],
+  "triggers": [],
+  "endings": [
+    {
+      "id": "ending_early",
+      "title": "Early Exit",
+      "subtitle": "Process terminated",
+      "conditions": {},
+      "epilogue": "The process ended early."
+    },
+    {
+      "id": "ending_normal",
+      "title": "Normal Ending",
+      "subtitle": "Standard outcome",
+      "conditions": {},
+      "epilogue": "A typical conclusion."
+    },
+    {
+      "id": "ending_success",
+      "title": "Success!",
+      "subtitle": "Goal achieved",
+      "conditions": {},
+      "epilogue": "Complete success!"
+    },
+    {
+      "id": "ending_failure",
+      "title": "Failure",
+      "subtitle": "Goal not met",
+      "conditions": {},
+      "epilogue": "Unfortunately, the goal was not achieved."
+    }
+  ],
+  "realHistory": [],
+  "sources": []
+}

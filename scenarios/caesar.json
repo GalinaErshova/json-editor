@@ -1,0 +1,3433 @@
+{
+  "meta": {
+    "id": "caesar-ides-of-march",
+    "version": "3.0.0",
+    "title": "Мартовские иды",
+    "subtitle": "Рим, Февраль—март, 44 г. до н. э.",
+    "description": "Решения Цезаря на фоне политической напряжённости и нарастающей угрозы заговора. ",
+    "epoch": "antiquity",
+    "region": "Rome",
+    "character": {
+      "name": "Гай Юлий Цезарь",
+      "role": "Диктатор Римской Республики",
+      "portrait": "/scenarios/caesar.jpg",
+      "portraitAnimated": null
+    },
+    "conflictType": "power-vs-republic",
+    "difficulty": "medium",
+    "turnCount": 7,
+    "estimatedMinutes": 15,
+    "tags": ["antiquity", "rome", "politics", "elite", "conspiracy"],
+    "locale": "ru",
+    "author": {
+      "id": "turning-point-team",
+      "name": "Turning Point",
+      "verified": true
+    },
+    "marketplace": {
+      "price": 0,
+      "isPremium": false,
+      "featured": true,
+      "publishedAt": null,
+      "downloads": 0,
+      "rating": null
+    }
+  },
+  "realHistoryEndingId": "ending_assassinated",
+  "toneLegendFile": "tone_legend_caesar",
+  "endingRules": [
+    {
+      "id": "rule_exact_history",
+      "type": "exact_history_match",
+      "endingId": "ending_assassinated",
+      "description": "Полное совпадение с realHistory приводит к историческому исходу."
+    },
+    {
+      "id": "rule_near_history_3",
+      "type": "near_history_match",
+      "lastNTurns": 3,
+      "endingId": "ending_assassinated",
+      "description": "Совпадение последних 3 исторических решений ведёт к историческому исходу."
+    },
+    {
+      "id": "rule_leave_rome",
+      "type": "choice_trigger",
+      "choiceId": "turn_2_concession_c",
+      "endingId": "ending_left_rome",
+      "immediate": true,
+      "description": "Выбор покинуть Рим завершает сценарий немедленно."
+    },
+    {
+      "id": "rule_conditional_crushed",
+      "type": "conditional",
+      "conditions": {
+        "conspiracy": {
+          "operator": "<=",
+          "value": 20
+        }
+      },
+      "endingId": "ending_conspiracy_crushed",
+      "description": "Низкая угроза заговора переводит исход в область подавленного заговора."
+    },
+    {
+      "id": "rule_area_01",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 61
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "endingId": "ending_area_01",
+      "description": "Область 01: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_02",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "endingId": "ending_area_02",
+      "description": "Область 02: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_03",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "endingId": "ending_area_03",
+      "description": "Область 03: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_04",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "endingId": "ending_area_04",
+      "description": "Область 04: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_05",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 0
+        }
+      },
+      "endingId": "ending_area_05",
+      "description": "Область 05: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_06",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "endingId": "ending_area_06",
+      "description": "Область 06: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_07",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "endingId": "ending_area_07",
+      "description": "Область 07: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_08",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 0
+        }
+      },
+      "endingId": "ending_area_08",
+      "description": "Область 08: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_09",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 81
+        }
+      },
+      "endingId": "ending_area_09",
+      "description": "Область 09: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_10",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "endingId": "ending_area_10",
+      "description": "Область 10: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_11",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "endingId": "ending_area_11",
+      "description": "Область 11: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_12",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "endingId": "ending_area_12",
+      "description": "Область 12: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_13",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "endingId": "ending_area_13",
+      "description": "Область 13: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_14",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "endingId": "ending_area_14",
+      "description": "Область 14: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_15",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "endingId": "ending_area_15",
+      "description": "Область 15: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_16",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 81
+        }
+      },
+      "endingId": "ending_area_16",
+      "description": "Область 16: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_17",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "endingId": "ending_area_17",
+      "description": "Область 17: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_18",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "endingId": "ending_area_18",
+      "description": "Область 18: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_19",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "endingId": "ending_area_19",
+      "description": "Область 19: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_20",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "endingId": "ending_area_20",
+      "description": "Область 20: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_21",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 61
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "endingId": "ending_area_21",
+      "description": "Область 21: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_22",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 61
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 0
+        }
+      },
+      "endingId": "ending_area_22",
+      "description": "Область 22: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_23",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "endingId": "ending_area_23",
+      "description": "Область 23: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_24",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "endingId": "ending_area_24",
+      "description": "Область 24: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_25",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "endingId": "ending_area_25",
+      "description": "Область 25: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_26",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "endingId": "ending_area_26",
+      "description": "Область 26: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_27",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 0
+        }
+      },
+      "endingId": "ending_area_27",
+      "description": "Область 27: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_28",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "endingId": "ending_area_28",
+      "description": "Область 28: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_29",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "endingId": "ending_area_29",
+      "description": "Область 29: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_30",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "endingId": "ending_area_30",
+      "description": "Область 30: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_31",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "endingId": "ending_area_31",
+      "description": "Область 31: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_32",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "endingId": "ending_area_32",
+      "description": "Область 32: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_area_33",
+      "type": "conditional",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 81
+        }
+      },
+      "endingId": "ending_area_33",
+      "description": "Область 33: упорядоченная проверка по границам тональной сетки."
+    },
+    {
+      "id": "rule_fallback",
+      "type": "default",
+      "endingId": "ending_default",
+      "description": "Подстраховка, если ни одна область не совпала."
+    }
+  ],
+  "briefing": {
+    "text": "Вы — диктатор Республики. Ваши победы сделали вас необходимым — и опасным. В Сенате растёт страх, среди нобилей — тайные союзы, вокруг вас — просители и льстецы.Идёт отсчёт к заседанию. Каждое решение меняет баланс: легионы, Сенат, народ и риск удара.",
+    "image": null,
+    "maxLength": 500
+  },
+  "params": [
+    {
+      "id": "legions",
+      "name": "Лояльность легионов",
+      "icon": "⚔️",
+      "color": "#c0392b",
+      "startValue": 75,
+      "min": 0,
+      "max": 100,
+      "description": "Готовность армии выполнять ваши приказы",
+      "thresholds": [
+        {
+          "value": 20,
+          "type": "danger",
+          "label": "Легионы на грани мятежа"
+        },
+        {
+          "value": 90,
+          "type": "warning",
+          "label": "Армия видит в вас бога"
+        }
+      ]
+    },
+    {
+      "id": "senate",
+      "name": "Авторитет в Сенате",
+      "icon": "🏛️",
+      "color": "#2980b9",
+      "startValue": 40,
+      "min": 0,
+      "max": 100,
+      "description": "Уровень поддержки среди сенаторов",
+      "thresholds": [
+        {
+          "value": 15,
+          "type": "danger",
+          "label": "Сенат объявляет вас врагом Республики"
+        },
+        {
+          "value": 80,
+          "type": "special",
+          "label": "Сенат готов дать вам любой титул"
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "name": "Народная любовь",
+      "icon": "👥",
+      "color": "#27ae60",
+      "startValue": 80,
+      "min": 0,
+      "max": 100,
+      "description": "Поддержка римского плебса",
+      "thresholds": [
+        {
+          "value": 25,
+          "type": "danger",
+          "label": "Народ отворачивается от вас"
+        },
+        {
+          "value": 90,
+          "type": "special",
+          "label": "Толпа готова растерзать ваших врагов"
+        }
+      ]
+    },
+    {
+      "id": "conspiracy",
+      "name": "Угроза заговора",
+      "icon": "🗡️",
+      "color": "#8e44ad",
+      "startValue": 55,
+      "min": 0,
+      "max": 100,
+      "description": "Сила и решимость заговорщиков",
+      "thresholds": [
+        {
+          "value": 85,
+          "type": "trigger",
+          "label": "Заговорщики наносят удар",
+          "triggerId": "assassination"
+        },
+        {
+          "value": 20,
+          "type": "special",
+          "label": "Заговор раскрыт и подавлен"
+        }
+      ]
+    }
+  ],
+  "turns": [
+    {
+      "id": "turn_1",
+      "order": 1,
+      "event": {
+        "period": "Начало февраля 44 г. до н. э.",
+        "text": "В Сенате предлагают утвердить вас dictator perpetuo — диктатором без срока; курия слышит в этом и стабильность, и угрозу Республике.",
+        "image": null,
+        "sourceRef": "src_1"
+      },
+      "isCulmination": false,
+      "timerSeconds": null,
+      "ai_override": false,
+      "choices": [
+        {
+          "id": "turn_1_a",
+          "title": "Отказаться",
+          "description": "Жест умеренности успокаивает курию и временно сбивает темп угрозы. Но подозрения уходят в тень, а не исчезают.",
+          "deltas": {
+            "legions": -1,
+            "senate": 10,
+            "people": -3,
+            "conspiracy": -10
+          },
+          "impactPreview": {
+            "senate": "↑",
+            "conspiracy": "↓"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "ЦЕЗАРЬ ОТКЛОНИЛ ТИТУЛ DICTATOR PERPETUO",
+            "body": "Февраль, 44 г. до н. э. В курии объявлено: Цезарь не принимает диктатуру без срока. Одни называют это уважением к обычаям, другие — осторожной мерой перед грядущим заседанием.",
+            "image": null,
+            "ai_override": false,
+            "legions": "Символически вы «сдаёте» часть публичной уверенности; ветераны и командиры могут видеть уступку сенатской элите. Но если выплаты/земли/командования не тронуты — падение ограничено.",
+            "senate": "Курия получает сигнал, что её язык и ритуалы ещё имеют вес. Для умеренных это повод вернуться в переговорный режим, а не в заговор.",
+            "people": "Толпе важнее образ победителя и покровителя. Отказ может выглядеть как «игра с аристократами», хотя часть примет это как благородство и уважение к традиции.",
+            "conspiracy": "Непосредственный повод («он объявил себя пожизненным») уходит, темп снижается. Но мотивы — страх концентрации власти и личные счёты — сохраняются, поэтому ядро заговора может просто перейти в более скрытую фазу."
+          },
+          "nextTurnId": "turn_2_concession"
+        },
+        {
+          "id": "turn_1_b",
+          "title": "Принять с ограничениями",
+          "description": "Компромисс сохраняет лицо Сенату и выигрывает время. Легионы видят признание власти, но радикалы могут ускориться.  Даже с оговорками, титул Dictator Perpetuo (пожизненный) уничтожал суть республики. Сенат не мог быть «доволен» этим, он мог лишь смириться. ",
+          "deltas": {
+            "legions": 8,
+            "senate": 0,
+            "people": 3,
+            "conspiracy": 2
+          },
+          "impactPreview": {
+            "legions": "↑↑",
+            "senate": "↑"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "DICTATOR PERPETUO — ПРИНЯТО, НО С ОГОВОРКАМИ",
+            "body": "В Сенате объявлено: Цезарь принимает новый титул, но подтверждает соблюдение установленных форм и полномочий магистратур. В курии говорят о компромиссе; одни видят в нём мир, другие — лишь отсрочку.",
+            "image": null,
+            "ai_override": false,
+            "legions": "Легионы — усилится. Признание власти закреплено публично; для войска важен сигнал устойчивости и непрерывности командования.",
+            "senate": "Сенат — слегка усилится (у умеренных), у радикалов — без изменений. «Оговорки» дают курии язык, чтобы сохранить лицо и торговаться; но убеждённых противников символ «пожизненности» всё равно раздражает.",
+            "people": "Виден порядок и преемственность власти, без резкого разрыва с традицией; толпа считывает это как управляемость.",
+            "conspiracy": "Компромисс успокаивает часть сенаторов, но сама фиксация титула может подтолкнуть наиболее решительных действовать быстрее, пока «оговорки» не превратились в чистую формальность."
+          },
+          "nextTurnId": "turn_2_concession"
+        },
+        {
+          "id": "turn_1_c",
+          "title": "Принять без ограничений",
+          "description": "Ясность власти нравится улице и сторонникам. В Сенате это звучит как \"царство\" — и приближает удар.",
+          "deltas": {
+            "legions": 5,
+            "senate": -10,
+            "people": 5,
+            "conspiracy": 12
+          },
+          "impactPreview": {
+            "people": "↑",
+            "senate": "↓↓",
+            "conspiracy": "↑↑"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "СЕНАТ ПОДПИСАЛСЯ ПОД ВЕЧНОЙ ВЛАСТЬЮ",
+            "body": "В курии оглашено решение: Цезарь принимает диктатуру без срока. Сторонники говорят о порядке после смуты; противники — о власти, которую уже трудно вернуть в прежние рамки.",
+            "image": null,
+            "ai_override": false,
+            "legions": "Чёткий сигнал устойчивости и единого командования; меньше сомнений в будущем распределении наград и назначений.",
+            "senate": "Для многих это выглядит как признание бессилия курии: «чрезвычайное» становится постоянным.",
+            "people": "Толпа чаще ценит мир и щедрость победителя; титул читается как гарантия порядка.",
+            "conspiracy": "Символ «без срока» консолидирует разрозненных противников и делает насилие для них «единственным выходом», пока окно возможностей не закрылось окончательно."
+          },
+          "nextTurnId": "turn_3_lupercalia"
+        }
+      ]
+    },
+    {
+      "id": "turn_2_concession",
+      "order": 2,
+      "event": {
+        "period": "Февраль 44 г. до н. э.",
+        "text": "Следующие дни после заседания Сената (февраль, 44 г. до н. э.). В курии ваше решение услышали — но каждый истолковал по-своему. Теперь важнее не слова, а то, чем вы их подкрепите.",
+        "image": null,
+        "sourceRef": null
+      },
+      "isCulmination": false,
+      "timerSeconds": null,
+      "ai_override": false,
+      "choices": [
+        {
+          "id": "turn_2_concession_a",
+          "title": "Уступки Сенату",
+          "description": "Дать курии роль и процедурные опоры, чтобы умеренные могли отступить от крайностей.",
+          "deltas": {
+            "legions": -2,
+            "senate": 8,
+            "people": -3,
+            "conspiracy": -10
+          },
+          "impactPreview": {
+            "senate": "↑",
+            "conspiracy": "↓↓"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "ЦЕЗАРЬ ОБЪЯВИЛ УСТУПКИ КУРИИ И ПОДТВЕРДИЛ ПРОЦЕДУРЫ",
+            "body": "Февраль, 44 г. до н. э. В курии и на форумах обсуждают: Цезарь возвращает вес сенатским решениям и обещает действовать через установленные порядки. Умеренные называют это разрядкой; непримиримые — уловкой.",
+            "image": null,
+            "ai_override": false,
+            "legions": "↓ Меньше демонстрации «непоколебимости», но без угрозы лояльности, если материальные обещания не тронуты.",
+            "senate": "↑ заметно. У умеренных появляется пространство для легального компромисса.",
+            "people": "↔ / ↓ слегка. Толпа хуже читает процедурные уступки; важнее хлеб, зрелища и уверенность.",
+            "conspiracy": "↓ краткосрочно. Снижается поддержка у колеблющихся; ядро заговора может сохраниться."
+          },
+          "nextTurnId": "turn_3_lupercalia"
+        },
+        {
+          "id": "turn_2_concession_b",
+          "title": "Порядок и протокол",
+          "description": "Усилить охрану и распорядок вокруг вас, показать управляемость — без новых обещаний. Однако помни, что усилинение охраны и дистанции в Риме считывалось как признак тирании",
+          "deltas": {
+            "legions": 2,
+            "senate": -10,
+            "people": -3,
+            "conspiracy": 8
+          },
+          "impactPreview": {
+            "legions": "↑",
+            "senate": "↓",
+            "conspiracy": "↑"
+          },
+          "newspaper": {
+            "style": "intelligence",
+            "headline": "ДОНЕСЕНИЕ",
+            "title": "В ДОМЕ ЦЕЗАРЯ УСИЛЕНЫ ПРОТОКОЛ И ОХРАНА",
+            "body": "Сообщают об изменениях в порядке приёмов и проходов: охрана строже, доступ к Цезарю ограничен, распоряжения исполняются быстрее. Сторонники говорят о благоразумии; в курии шепчут о страхе и недоверии.",
+            "image": null,
+            "ai_override": false,
+            "legions": "↑ слегка (сигнал контроля и дисциплины вокруг верховной власти).",
+            "senate": "↓ слегка (чувствуют отчуждение и подозрение; растёт раздражение «закрытым двором»).",
+            "people": "↑/↔ (часть видит порядок, часть — высокомерие и удаление от людей).",
+            "conspiracy": "↑ краткосрочно / ↔ (заговорщики могут ускориться, пока «окно» не закрылось; но риск провала для них тоже растёт)."
+          },
+          "nextTurnId": "turn_3_lupercalia"
+        },
+        {
+          "id": "turn_2_concession_c",
+          "title": "Покинуть Рим",
+          "description": "Уехать на несколько дней по государственным делам, дать городу остыть и спутать расчёты противников.",
+          "forceTrigger": "tactical_retreat",
+          "deltas": {
+            "legions": 3,
+            "senate": -8,
+            "people": -8,
+            "conspiracy": 5
+          },
+          "impactPreview": {
+            "senate": "↓",
+            "people": "↓",
+            "conspiracy": "↑"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "ЦЕЗАРЬ ВЫЕХАЛ ИЗ РИМА; ЗАСЕДАНИЕ СЕНАТА 15 МАРТА НЕ СОСТОИТСЯ",
+            "body": " Конец февраля, 44 г. до н. э. Цезарь покинул город и направился в Кампанию для смотра дел и назначений. В курии объявлено: заседание, назначенное на иды марта, отменено; новый день будет назван позже.",
+            "image": null,
+            "ai_override": false,
+            "legions": "лидер смещает опору на администрацию и войско вне города; сигнал контроля",
+            "senate": "курия лишена главной сцены и даты, вокруг которой строились планы",
+            "people": "небольшая неопределённость и слухи, но без немедленной «точки кипения»",
+            "conspiracy": "снижается в моменте (нет заседания 15 марта), но перетекает в долгую: заговорщикам нужно перестраивать план и искать иной момент."
+          },
+          "nextTurnId": "turn_3_lupercalia"
+        }
+      ]
+    },
+    {
+      "id": "turn_4_cassius",
+      "order": 4,
+      "event": {
+        "period": "Конец февраля, 44 г. до н. э. ",
+        "text": "В курии выступает Гай Кассий Лонгин: он предупреждает, что любые «пожизненные» полномочия — это путь к царской власти, как бы её ни называли. Речь подхватывают недовольные, и зал внимательно смотрит, ответите ли вы — или сделаете вид, что это лишь шум.",
+        "image": null,
+        "sourceRef": null
+      },
+      "isCulmination": false,
+      "timerSeconds": null,
+      "ai_override": false,
+      "choices": [
+        {
+          "id": "turn_4_cassius_a",
+          "title": "Игнорировать выступления",
+          "description": "Сделать вид, что это шум — не угроза",
+          "deltas": {
+            "legions": -2,
+            "senate": -6,
+            "people": 0,
+            "conspiracy": 6
+          },
+          "impactPreview": {
+            "senate": "↓",
+            "conspiracy": "↑"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "РЕЧЬ КАССИЯ ОСТАЛАСЬ БЕЗ ОТВЕТА",
+            "body": "Кассий говорил в курии о страхе перед «царской властью», но Цезарь не вступил в спор. Одни считают молчание достоинством, другие — сигналом, что предупреждения больше не слышат.",
+            "image": null,
+            "ai_override": false,
+            "legions": "падает слегка,  нет демонстрации контроля над элитой, но и нет конфликта",
+            "senate": "слегка уменьшается, так как  кажется, что курию игнорируют; растёт обида и шёпот",
+            "people": "толпа мало следит за сенатскими речами, если нет зрелища/скандала",
+            "conspiracy": "Усиливается, оппоненты читают молчание как уязвимость и отсутствие политической работы с элитой."
+          },
+          "nextTurnId": "turn_6_warnings"
+        },
+        {
+          "id": "turn_4_cassius_b",
+          "title": "Ответить и смягчить",
+          "description": "Публично снять остроту, показав границы власти",
+          "deltas": {
+            "legions": 2,
+            "senate": 6,
+            "people": 2,
+            "conspiracy": -6
+          },
+          "impactPreview": {
+            "senate": "↑",
+            "conspiracy": "↓"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "ЦЕЗАРЬ ОТВЕТИЛ КАССИЮ: «РЕЧЬ НЕ О ЦАРЕ, А О ПОРЯДКЕ»",
+            "body": "После выступления Кассия Цезарь публично подчеркнул: власть служит миру и законам, а не личному возвышению. Умеренные сенаторы отмечают примирительный тон; непримиримые называют его словами без уступок.",
+            "image": null,
+            "ai_override": false,
+            "legions": "Растет, образ уверенной, но не истеричной власти",
+            "senate": "Растет, умеренные получают сигнал диалога; снижается температура",
+            "people": "публичная речь добавляет легитимности, но эффект умеренный",
+            "conspiracy": "снижется, но краткосрочно - сложнее вербовать колеблющихся; ядро может сохраниться"
+          },
+          "nextTurnId": "turn_6_warnings"
+        },
+        {
+          "id": "turn_4_cassius_c",
+          "title": "Пригрозить последствиями",
+          "description": "Дать понять, что дерзость в курии будет стоить должностей и влияния",
+          "deltas": {
+            "legions": 5,
+            "senate": -10,
+            "people": 2,
+            "conspiracy": 10
+          },
+          "impactPreview": {
+            "legions": "↑",
+            "senate": "↓↓",
+            "conspiracy": "↑"
+          },
+          "newspaper": {
+            "style": "intelligence",
+            "headline": "ДОНЕСЕНИЕ",
+            "title": "В КУРИИ ЗВУЧАТ УГРОЗЫ: РЕЧЬ КАССИЯ НАЗВАНА ПОДСТРЕКАТЕЛЬСТВОМ",
+            "body": "Цезарь резко ответил Кассию и дал понять, что подобные речи будут рассматриваться как подрыв порядка. Сторонники говорят о необходимой строгости; противники — о страхе и начале расправ.",
+            "image": null,
+            "ai_override": false,
+            "legions": "усиливается, сигнал жёсткого контроля и дисциплины",
+            "senate": "заметно падает: страх, унижение, консолидация обиженных",
+            "people": "нейтрально, часть любит «сильную руку», но без зрелища эффект ограничен",
+            "conspiracy": "увеличивается,  жёсткость ускоряет радикализацию и координацию; появляется мотив «действовать первыми»"
+          },
+          "nextTurnId": "turn_6_warnings"
+        }
+      ]
+    },
+    {
+      "id": "turn_3_lupercalia",
+      "order": 3,
+      "event": {
+        "period": "15 февраля, 44 г. до н. э.",
+        "text": "Луперкалии. Антоний предлагает Цезарю диадему на глазах у народа — и Рим ждёт ответа жестом.",
+        "image": null,
+        "sourceRef": "src_2"
+      },
+      "isCulmination": false,
+      "timerSeconds": null,
+      "ai_override": false,
+      "choices": [
+        {
+          "id": "turn_3_lupercalia_a",
+          "title": "Принять знак",
+          "description": "Принять власть символом: не спорить о словах, закрепить положение жестом.",
+          "deltas": {
+            "legions": 5,
+            "senate": -8,
+            "people": -15,
+            "conspiracy": 10
+          },
+          "impactPreview": {
+            "people": "↑↑",
+            "senate": "↓",
+            "conspiracy": "↑"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "НА ЛУПЕРКАЛИЯХ ЦЕЗАРЬ ПРИНЯЛ ДИАДЕМУ ИЗ РУК АНТОНИЯ",
+            "body": "На форуме Антоний возложил на Цезаря диадему, и та не была отвергнута. Толпа приветствовала зрелище, но в курии говорят, что слово «царь» вновь стало политическим оружием.",
+            "image": null,
+            "ai_override": false,
+            "legions": "увеличивается: ясный сигнал верховной власти и устойчивости",
+            "senate": "заметно падает: воспринимается как шаг к монархии",
+            "people": "заметно растет: часть толпы любит величие и ясность лидера",
+            "conspiracy": "резко растет: символ «царства» ускоряет консолидацию противников"
+          },
+          "nextTurnId": "turn_4_cassius"
+        },
+        {
+          "id": "turn_3_lupercalia_b",
+          "title": "Отложить",
+          "description": "Оставить знак без ответа: выиграть время и не дать толпе и курии \"схватить\" вас за один жест.",
+          "deltas": {
+            "legions": 0,
+            "senate": -3,
+            "people": 0,
+            "conspiracy": 3
+          },
+          "impactPreview": {
+            "senate": "↑",
+            "conspiracy": "↑"
+          },
+          "newspaper": {
+            "style": "letter",
+            "headline": "ЗАПИСКА СОВЕТНИКА",
+            "title": "ДИАДЕМА НА ЛУПЕРКАЛИЯХ: ЦЕЗАРЬ НЕ ДАЛ ОТВЕТА НЕМЕДЛЕННО",
+            "body": "Антоний предложил Цезарю диадему, но решение не было оглашено сразу. На форуме спорят о смысле паузы; в Сенате называют её признаком торга и осторожности.",
+            "image": null,
+            "ai_override": false,
+            "legions": "слегка растет: власть не отринута, но и не закреплена",
+            "senate": "слегка падает: подозрение остаётся: «просто ждёт удобного часа",
+            "people": "слегка падает: толпа не любит неопределённости",
+            "conspiracy": "слегка растет: пауза не снимает страх, даёт почву слухам"
+          },
+          "nextTurnId": "turn_4_cassius"
+        },
+        {
+          "id": "turn_3_lupercalia_c",
+          "title": "Демонстративно отказаться",
+          "description": "Оттолкнуть знак на глазах у всех: жест для курии, что царских знаков вы не принимаете.",
+          "deltas": {
+            "legions": 0,
+            "senate": 8,
+            "people": 8,
+            "conspiracy": 2
+          },
+          "impactPreview": {
+            "senate": "↑↑",
+            "people": "↓↓",
+            "conspiracy": "↓"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "ЦЕЗАРЬ ОТВЕРГ ДИАДЕМУ НА ЛУПЕРКАЛИЯХ",
+            "body": "На форуме Антоний предложил Цезарю диадему, но та была отвергнута на глазах у народа. Площадь приветствовала жест; в курии отмечают, что страх «царской власти» на время ослаб.",
+            "image": null,
+            "ai_override": false,
+            "legions": "слегка падает: меньше символической «непоколебимости», но без удара по лояльности",
+            "senate": "растет: умеренные получают сигнал, что символы имеют значение",
+            "people": "растет: жест считывается как уважение к традиции и настроению толпы",
+            "conspiracy": "краткосрочно увеличивается: тяжёлый символический повод ослабевает, хотя причины недовольства сохраняются"
+          },
+          "nextTurnId": "turn_4_cassius"
+        }
+      ]
+    },
+    {
+      "id": "turn_6_warnings",
+      "order": 6,
+      "event": {
+        "period": "Начало марта, 44 г. до н. э. ",
+        "text": "Предупреждения становятся предметными: в городе называют круг сенаторов и день заседания. Гаруспик Спуринна повторяет своё предсказание: «берегись до ид марта». Вопрос уже не в слухах — а в том, что вы делаете с ними.",
+        "image": null,
+        "sourceRef": null
+      },
+      "isCulmination": false,
+      "timerSeconds": null,
+      "ai_override": false,
+      "choices": [
+        {
+          "id": "turn_6_warnings_a",
+          "title": "Примирить элиту",
+          "description": "Жесты доверия и уступки: вернуть умеренным в курии путь к компромиссу.",
+          "deltas": {
+            "legions": -5,
+            "senate": 8,
+            "people": 0,
+            "conspiracy": -8
+          },
+          "impactPreview": {
+            "senate": "↑",
+            "conspiracy": "↓"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "КУРИЯ СЛЫШИТ СЛОВО «МИР»",
+            "body": "После предупреждений о заговоре объявлены жесты примирения и переговоры с умеренными. Одни видят шанс на разрядку, другие — попытку расколоть противников, не меняя сути власти.",
+            "image": null,
+            "ai_override": false,
+            "legions": "нейтрально: армии важнее выплаты/командование, чем тон в курии",
+            "senate": "растет: умеренные получают основания отступить от крайностей",
+            "people": "реакция слабая, если нет зрелища и хлеба",
+            "conspiracy": "уменьшается: сложнее вербовать колеблющихся, но ядро может сохраниться"
+          },
+          "nextTurnId": "turn_7_ides"
+        },
+        {
+          "id": "turn_6_warnings_b",
+          "title": "Ударить по подозреваемым",
+          "description": "Расследование и задержания: попытка сорвать заговор ценой страха в курии.",
+          "deltas": {
+            "legions": 1,
+            "senate": -5,
+            "people": -5,
+            "conspiracy": -15
+          },
+          "impactPreview": {
+            "conspiracy": "↓↓",
+            "senate": "↓"
+          },
+          "newspaper": {
+            "style": "intelligence",
+            "headline": "ДОНЕСЕНИЕ",
+            "title": "СПИСКИ ИМЁН: КРУГ СУЖАЕТСЯ",
+            "body": "По сигналам осведомителей начаты опросы и задержания. В курии растёт страх: сегодня спрашивают одних, завтра — всех; заговорщики же вынуждены менять связи и сроки.",
+            "image": null,
+            "ai_override": false,
+            "legions": "немного растет:видят решительность и контроль, но не ключевой фактор",
+            "senate": "падает: унижение и страх толкают колеблющихся к оппозиции",
+            "people": "слегка уменьшается: опасается «охоты» и доносов; слухи множатся",
+            "conspiracy": "резко уменьшается: планы срываются, сеть сжимается, растёт риск провала"
+          },
+          "nextTurnId": "turn_7_ides"
+        },
+        {
+          "id": "turn_6_warnings_c",
+          "title": "Игнорировать",
+          "description": "Не менять распорядок: показать презрение к страху и \"не верить слухам\".",
+          "deltas": {
+            "legions": 0,
+            "senate": -8,
+            "people": 0,
+            "conspiracy": 12
+          },
+          "impactPreview": {
+            "conspiracy": "↑↑",
+            "senate": "↓"
+          },
+          "newspaper": {
+            "style": "letter",
+            "headline": "ПИСЬМО ИЗ РИМА",
+            "title": "О ПРЕДУПРЕЖДЕНИЯХ И ОТКАЗЕ ОТ ОХРАНЫ",
+            "body": "У Цезаря много врагов и завистников, и слухи о заговоре уже не скрывают имён. Соратники не раз советовали усилить охрану, но он оставался непреклонен: «Лучше один раз умереть, чем постоянно ожидать смерти».",
+            "image": null,
+            "ai_override": false,
+            "legions": "нейтрально: армия далеко от городских слухов",
+            "senate": "падает: ощущение, что курию не слышат и не уважают",
+            "people": "нейтрально: волнуется слухами, но без действия быстро переключается",
+            "conspiracy": "резко увеличивается: окно возможностей кажется открытым"
+          },
+          "nextTurnId": "turn_7_ides",
+          "endingIds": ["ending_turn_6_warnings_c"]
+        }
+      ]
+    },
+    {
+      "id": "turn_7_ides",
+      "order": 7,
+      "event": {
+        "period": "Утро. 15 марта. 44 до н.э",
+        "text": "Кальпурния умоляет не идти: ночь принесла ей дурной сон. С рассветом приходят новые предупреждения, и предсказание Спуринны вспоминают вслух. Сегодня курия — не место речи, а место удара: решение о заседании и охране определит, выйдете ли вы живым.",
+        "image": null,
+        "sourceRef": "src_3"
+      },
+      "isCulmination": true,
+      "timerSeconds": 60,
+      "ai_override": false,
+      "choices": [
+        {
+          "id": "turn_7_ides_a",
+          "title": "Идти без охраны",
+          "description": "Войти в курию без сопровождения — показать, что вы не боитесь и не прячетесь за мечами.",
+          "deltas": {
+            "legions": 0,
+            "senate": -8,
+            "people": 0,
+            "conspiracy": 12
+          },
+          "impactPreview": {
+            "conspiracy": "↑↑"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA · ЭКСТРЕННО",
+            "title": "КРОВЬ В КУРИИ",
+            "body": "Заседание обернулось ловушкой: удары последовали один за другим. Рим замер — и тут же заговорил о «свободе» и о мести. Начинается борьба за то, кто назовёт убийство спасением, а кто — преступлением.",
+            "image": null,
+            "ai_override": false,
+            "legions": "нейтрально: войско реагирует позже, но центр власти лишается головы",
+            "senate": "падает:  паника, раскол, взаимные обвинения",
+            "people": "тревога: город ждёт хлеба и защиты, слухи взрывают улицы",
+            "conspiracy": "удар реализован; дальше — хаос последствий"
+          },
+          "nextTurnId": null,
+          "endingIds": [
+            "ending_area_01",
+            "ending_area_02",
+            "ending_area_03",
+            "ending_area_04",
+            "ending_area_05",
+            "ending_area_06",
+            "ending_area_07",
+            "ending_area_08",
+            "ending_area_09",
+            "ending_area_10",
+            "ending_area_11",
+            "ending_area_12",
+            "ending_area_13",
+            "ending_area_14",
+            "ending_area_15",
+            "ending_area_16",
+            "ending_area_17",
+            "ending_area_18",
+            "ending_area_19",
+            "ending_area_20",
+            "ending_area_21",
+            "ending_area_22",
+            "ending_area_23",
+            "ending_area_24",
+            "ending_area_25",
+            "ending_area_26",
+            "ending_area_27",
+            "ending_area_28",
+            "ending_area_29",
+            "ending_area_30",
+            "ending_area_31",
+            "ending_area_32",
+            "ending_area_33",
+            "ending_assassinated",
+            "ending_conspiracy_crushed",
+            "ending_left_rome",
+            "ending_default"
+          ]
+        },
+        {
+          "id": "turn_7_ides_b",
+          "title": "Идти с охраной",
+          "description": "Войти с сопровождением и строгим протоколом — безопасность важнее символов.",
+          "deltas": {
+            "legions": 3,
+            "senate": -12,
+            "people": 0,
+            "conspiracy": -12
+          },
+          "impactPreview": {
+            "conspiracy": "↓↓"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "ПОПЫТКА СОРВАНА, ДИКТАТОР ЖИВ",
+            "body": "План врагов распался: протокол оказался сильнее клинков. Но теперь вопрос не в том, кто ударил, а в том, что будет с курией завтра.",
+            "image": null,
+            "ai_override": false,
+            "legions": "увеличивается: сигнал контроля и сохранения власти",
+            "senate": "слегка уменьшается: обида на «военный двор» и страх последствий",
+            "people": "без крови — меньше шока; но слухи о заговоре будоражат",
+            "conspiracy": "попытка срывается, сеть раскрывается/распадается"
+          },
+          "nextTurnId": null,
+          "endingIds": [
+            "ending_area_01",
+            "ending_area_02",
+            "ending_area_03",
+            "ending_area_04",
+            "ending_area_05",
+            "ending_area_06",
+            "ending_area_07",
+            "ending_area_08",
+            "ending_area_09",
+            "ending_area_10",
+            "ending_area_11",
+            "ending_area_12",
+            "ending_area_13",
+            "ending_area_14",
+            "ending_area_15",
+            "ending_area_16",
+            "ending_area_17",
+            "ending_area_18",
+            "ending_area_19",
+            "ending_area_20",
+            "ending_area_21",
+            "ending_area_22",
+            "ending_area_23",
+            "ending_area_24",
+            "ending_area_25",
+            "ending_area_26",
+            "ending_area_27",
+            "ending_area_28",
+            "ending_area_29",
+            "ending_area_30",
+            "ending_area_31",
+            "ending_area_32",
+            "ending_area_33",
+            "ending_assassinated",
+            "ending_conspiracy_crushed",
+            "ending_left_rome",
+            "ending_default"
+          ]
+        },
+        {
+          "id": "turn_7_ides_c",
+          "title": "Перенести заседание",
+          "description": "Отменить заседание на сегодня — лишить врагов точки удара и выиграть время.",
+          "deltas": {
+            "legions": 0,
+            "senate": 2,
+            "people": -5,
+            "conspiracy": -10
+          },
+          "impactPreview": {
+            "conspiracy": "↓"
+          },
+          "newspaper": {
+            "style": "acta_diurna",
+            "headline": "ACTA DIURNA",
+            "title": "КУРИЯ ЖДАЛА — И НЕ ДОЖДАЛАСЬ",
+            "body": "Заседание не состоялось: Цезарь не пришёл, и курия разошлась с пустыми руками. Крови нет, но доверия тоже: одни говорят о благоразумии, другие — о страхе. Заговор не исчез — он ищет новый день и новое место.",
+            "image": null,
+            "ai_override": false,
+            "legions": "власть сохранена, но демонстрации силы нет",
+            "senate": "формально курия не унижена кровью; появляется пространство для торга",
+            "people": "разочарование и слухи: «почему отменили?»",
+            "conspiracy": "точка удара сорвана, но риск перетекает в будущее."
+          },
+          "nextTurnId": null,
+          "endingIds": [
+            "ending_area_01",
+            "ending_area_02",
+            "ending_area_03",
+            "ending_area_04",
+            "ending_area_05",
+            "ending_area_06",
+            "ending_area_07",
+            "ending_area_08",
+            "ending_area_09",
+            "ending_area_10",
+            "ending_area_11",
+            "ending_area_12",
+            "ending_area_13",
+            "ending_area_14",
+            "ending_area_15",
+            "ending_area_16",
+            "ending_area_17",
+            "ending_area_18",
+            "ending_area_19",
+            "ending_area_20",
+            "ending_area_21",
+            "ending_area_22",
+            "ending_area_23",
+            "ending_area_24",
+            "ending_area_25",
+            "ending_area_26",
+            "ending_area_27",
+            "ending_area_28",
+            "ending_area_29",
+            "ending_area_30",
+            "ending_area_31",
+            "ending_area_32",
+            "ending_area_33",
+            "ending_assassinated",
+            "ending_conspiracy_crushed",
+            "ending_left_rome",
+            "ending_default"
+          ]
+        }
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "id": "assassination",
+      "condition": {
+        "param": "conspiracy",
+        "operator": ">=",
+        "value": 85
+      },
+      "effect": "force_ending",
+      "endingId": "ending_assassinated",
+      "description": "Если угроза достигает порога, удар становится неизбежным"
+    },
+    {
+      "id": "conspiracy_crushed",
+      "condition": {
+        "param": "conspiracy",
+        "operator": "<=",
+        "value": 20
+      },
+      "effect": "force_ending",
+      "endingId": "ending_conspiracy_crushed",
+      "description": "Заговор вскрыт и деморализован до потери управляемости"
+    },
+    {
+      "id": "tactical_retreat",
+      "condition": {
+        "param": "conspiracy",
+        "operator": ">=",
+        "value": 999
+      },
+      "effect": "force_ending",
+      "endingId": "ending_turn_2_concession_c",
+      "description": "Решение покинуть Рим досрочно завершает игру (активируется только через forceTrigger)"
+    }
+  ],
+  "endings": [
+    {
+      "id": "ending_area_01",
+      "title": "Город доволен, ножи в ножнах",
+      "subtitle": "Ощутимая стабильность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 61
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "epilogue": "Город сыт — и потому терпелив. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Большинство Сената работает в связке. Народ: Толпа на твоей стороне почти безусловно. Заговор: Есть кружки и клятвы, но нет решимости.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 81,
+          "max": 88
+        },
+        "senate": {
+          "min": 61,
+          "max": 77
+        },
+        "people": {
+          "min": 84,
+          "max": 90
+        },
+        "conspiracy": {
+          "min": 16,
+          "max": 40
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:61-80|people:81-100|conspiracy:21-40",
+        "legions:81-100|senate:61-80|people:81-100|conspiracy:0-20"
+      ],
+      "pointCount": 8
+    },
+    {
+      "id": "ending_area_02",
+      "title": "Сила есть, но ножи уже наточены",
+      "subtitle": "Безопасность против легитимности",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "epilogue": "Легионы: Почти личная армия, приказ не обсуждают. Сенат: Торг возможен: уступки меняют голоса. Народ: Толпа на твоей стороне почти безусловно. Заговор: План созревает: ищут окно атаки.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 83,
+          "max": 87
+        },
+        "senate": {
+          "min": 42,
+          "max": 43
+        },
+        "people": {
+          "min": 82,
+          "max": 88
+        },
+        "conspiracy": {
+          "min": 61,
+          "max": 70
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:41-60|people:81-100|conspiracy:61-80"
+      ],
+      "pointCount": 3
+    },
+    {
+      "id": "ending_area_03",
+      "title": "Сеть при балансе сделка без любви",
+      "subtitle": "Легионы: Личная армия | Народ: Народный вождь",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "epilogue": "Легионы: Почти личная армия, приказ не обсуждают. Сенат: Торг возможен: уступки меняют голоса. Народ: Толпа на твоей стороне почти безусловно. Заговор: Сеть собирается, роли намечены.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 81,
+          "max": 95
+        },
+        "senate": {
+          "min": 41,
+          "max": 56
+        },
+        "people": {
+          "min": 82,
+          "max": 95
+        },
+        "conspiracy": {
+          "min": 42,
+          "max": 60
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:41-60|people:81-100|conspiracy:41-60"
+      ],
+      "pointCount": 26
+    },
+    {
+      "id": "ending_area_04",
+      "title": "Город доволен, ножи в ножнах",
+      "subtitle": "Ощутимая стабильность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "epilogue": "Город сыт — и потому терпелив. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Торг возможен: уступки меняют голоса. Народ: Толпа на твоей стороне почти безусловно. Заговор: Есть кружки и клятвы, но нет решимости.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 82,
+          "max": 92
+        },
+        "senate": {
+          "min": 41,
+          "max": 59
+        },
+        "people": {
+          "min": 82,
+          "max": 95
+        },
+        "conspiracy": {
+          "min": 21,
+          "max": 39
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:41-60|people:81-100|conspiracy:21-40"
+      ],
+      "pointCount": 18
+    },
+    {
+      "id": "ending_area_05",
+      "title": "Город доволен, ножи в ножнах",
+      "subtitle": "Ощутимая стабильность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 0
+        }
+      },
+      "epilogue": "Город сыт — и потому терпелив. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Торг возможен: уступки меняют голоса. Народ: Толпа на твоей стороне почти безусловно. Заговор: Лишь шёпот и речи, без единого плана.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 82,
+          "max": 90
+        },
+        "senate": {
+          "min": 41,
+          "max": 59
+        },
+        "people": {
+          "min": 84,
+          "max": 85
+        },
+        "conspiracy": {
+          "min": 9,
+          "max": 19
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:41-60|people:81-100|conspiracy:0-20"
+      ],
+      "pointCount": 3
+    },
+    {
+      "id": "ending_area_06",
+      "title": "Сеть при балансе сделка без любви",
+      "subtitle": "Легионы: Личная армия | Народ: Благосклонность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "epilogue": "Легионы: Почти личная армия, приказ не обсуждают. Сенат: Торг возможен: уступки меняют голоса. Народ: Народ благосклонен и ценит стабильность. Заговор: Сеть собирается, роли намечены.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 81,
+          "max": 87
+        },
+        "senate": {
+          "min": 41,
+          "max": 53
+        },
+        "people": {
+          "min": 71,
+          "max": 77
+        },
+        "conspiracy": {
+          "min": 41,
+          "max": 56
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:41-60|people:61-80|conspiracy:41-60"
+      ],
+      "pointCount": 5
+    },
+    {
+      "id": "ending_area_07",
+      "title": "Город доволен, ножи в ножнах",
+      "subtitle": "Ощутимая стабильность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "epilogue": "Легионы: Почти личная армия, приказ не обсуждают. Сенат: Торг возможен: уступки меняют голоса. Народ: Народ благосклонен и ценит стабильность. Заговор: Есть кружки и клятвы, но нет решимости.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 81,
+          "max": 89
+        },
+        "senate": {
+          "min": 47,
+          "max": 66
+        },
+        "people": {
+          "min": 76,
+          "max": 80
+        },
+        "conspiracy": {
+          "min": 21,
+          "max": 39
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:61-80|people:61-80|conspiracy:21-40",
+        "legions:81-100|senate:41-60|people:61-80|conspiracy:21-40"
+      ],
+      "pointCount": 10
+    },
+    {
+      "id": "ending_area_08",
+      "title": "Город доволен, ножи в ножнах",
+      "subtitle": "Ощутимая стабильность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 0
+        }
+      },
+      "epilogue": "Легионы: Почти личная армия, приказ не обсуждают. Сенат: Торг возможен: уступки меняют голоса. Народ: Народ благосклонен и ценит стабильность. Заговор: Лишь шёпот и речи, без единого плана.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 82,
+          "max": 87
+        },
+        "senate": {
+          "min": 46,
+          "max": 53
+        },
+        "people": {
+          "min": 72,
+          "max": 79
+        },
+        "conspiracy": {
+          "min": 12,
+          "max": 19
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:41-60|people:61-80|conspiracy:0-20"
+      ],
+      "pointCount": 4
+    },
+    {
+      "id": "ending_area_09",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 81
+        }
+      },
+      "epilogue": "На Форуме это приняли как справедливость; в Курии — как пощёчину. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Толпа на твоей стороне почти безусловно. Заговор: Всё готово: осталось выбрать час и место.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 83,
+          "max": 95
+        },
+        "senate": {
+          "min": 22,
+          "max": 27
+        },
+        "people": {
+          "min": 80,
+          "max": 90
+        },
+        "conspiracy": {
+          "min": 81,
+          "max": 93
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:21-40|people:81-100|conspiracy:81-100",
+        "legions:81-100|senate:21-40|people:61-80|conspiracy:81-100"
+      ],
+      "pointCount": 9
+    },
+    {
+      "id": "ending_area_10",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "epilogue": "На Форуме это приняли как справедливость; в Курии — как пощёчину. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Толпа на твоей стороне почти безусловно. Заговор: План созревает: ищут окно атаки.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 81,
+          "max": 95
+        },
+        "senate": {
+          "min": 22,
+          "max": 40
+        },
+        "people": {
+          "min": 82,
+          "max": 95
+        },
+        "conspiracy": {
+          "min": 61,
+          "max": 80
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:21-40|people:81-100|conspiracy:61-80"
+      ],
+      "pointCount": 39
+    },
+    {
+      "id": "ending_area_11",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "epilogue": "На Форуме это приняли как справедливость; в Курии — как пощёчину. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Толпа на твоей стороне почти безусловно. Заговор: Сеть собирается, роли намечены.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 81,
+          "max": 98
+        },
+        "senate": {
+          "min": 22,
+          "max": 40
+        },
+        "people": {
+          "min": 82,
+          "max": 95
+        },
+        "conspiracy": {
+          "min": 41,
+          "max": 60
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:21-40|people:81-100|conspiracy:41-60"
+      ],
+      "pointCount": 32
+    },
+    {
+      "id": "ending_area_12",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "epilogue": "На Форуме это приняли как справедливость; в Курии — как пощёчину. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Толпа на твоей стороне почти безусловно. Заговор: Есть кружки и клятвы, но нет решимости.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 86,
+          "max": 95
+        },
+        "senate": {
+          "min": 23,
+          "max": 34
+        },
+        "people": {
+          "min": 82,
+          "max": 90
+        },
+        "conspiracy": {
+          "min": 29,
+          "max": 39
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:21-40|people:81-100|conspiracy:21-40"
+      ],
+      "pointCount": 6
+    },
+    {
+      "id": "ending_area_13",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "epilogue": "В Курии слушают — и уже не верят. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Народ благосклонен и ценит стабильность. Заговор: План созревает: ищут окно атаки.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 81,
+          "max": 90
+        },
+        "senate": {
+          "min": 21,
+          "max": 37
+        },
+        "people": {
+          "min": 71,
+          "max": 80
+        },
+        "conspiracy": {
+          "min": 62,
+          "max": 78
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:21-40|people:61-80|conspiracy:61-80"
+      ],
+      "pointCount": 7
+    },
+    {
+      "id": "ending_area_14",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "epilogue": "Легионы: Почти личная армия, приказ не обсуждают. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Народ благосклонен и ценит стабильность. Заговор: Сеть собирается, роли намечены.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 81,
+          "max": 93
+        },
+        "senate": {
+          "min": 21,
+          "max": 39
+        },
+        "people": {
+          "min": 70,
+          "max": 80
+        },
+        "conspiracy": {
+          "min": 41,
+          "max": 59
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:21-40|people:61-80|conspiracy:41-60"
+      ],
+      "pointCount": 22
+    },
+    {
+      "id": "ending_area_15",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "epilogue": "Легионы: Почти личная армия, приказ не обсуждают. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Народ благосклонен и ценит стабильность. Заговор: Есть кружки и клятвы, но нет решимости.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 81,
+          "max": 92
+        },
+        "senate": {
+          "min": 17,
+          "max": 40
+        },
+        "people": {
+          "min": 66,
+          "max": 80
+        },
+        "conspiracy": {
+          "min": 15,
+          "max": 40
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:21-40|people:61-80|conspiracy:21-40",
+        "legions:81-100|senate:21-40|people:61-80|conspiracy:0-20",
+        "legions:81-100|senate:0-20|people:61-80|conspiracy:21-40"
+      ],
+      "pointCount": 21
+    },
+    {
+      "id": "ending_area_16",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 81
+        }
+      },
+      "epilogue": "На Форуме это приняли как справедливость; в Курии — как пощёчину. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Курия враждебна и саботирует решения. Народ: Толпа на твоей стороне почти безусловно. Заговор: Всё готово: осталось выбрать час и место.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 81,
+          "max": 95
+        },
+        "senate": {
+          "min": 4,
+          "max": 19
+        },
+        "people": {
+          "min": 76,
+          "max": 95
+        },
+        "conspiracy": {
+          "min": 84,
+          "max": 96
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:0-20|people:81-100|conspiracy:81-100",
+        "legions:81-100|senate:0-20|people:61-80|conspiracy:81-100"
+      ],
+      "pointCount": 14
+    },
+    {
+      "id": "ending_area_17",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "epilogue": "На Форуме это приняли как справедливость; в Курии — как пощёчину. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Курия враждебна и саботирует решения. Народ: Толпа на твоей стороне почти безусловно. Заговор: План созревает: ищут окно атаки.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 79,
+          "max": 96
+        },
+        "senate": {
+          "min": 0,
+          "max": 20
+        },
+        "people": {
+          "min": 82,
+          "max": 95
+        },
+        "conspiracy": {
+          "min": 61,
+          "max": 80
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:0-20|people:81-100|conspiracy:61-80",
+        "legions:61-80|senate:0-20|people:81-100|conspiracy:61-80"
+      ],
+      "pointCount": 19
+    },
+    {
+      "id": "ending_area_18",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "epilogue": "На Форуме это приняли как справедливость; в Курии — как пощёчину. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Курия враждебна и саботирует решения. Народ: Толпа на твоей стороне почти безусловно. Заговор: Сеть собирается, роли намечены.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 84,
+          "max": 99
+        },
+        "senate": {
+          "min": 2,
+          "max": 20
+        },
+        "people": {
+          "min": 82,
+          "max": 90
+        },
+        "conspiracy": {
+          "min": 39,
+          "max": 58
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:0-20|people:81-100|conspiracy:41-60",
+        "legions:81-100|senate:0-20|people:81-100|conspiracy:21-40"
+      ],
+      "pointCount": 10
+    },
+    {
+      "id": "ending_area_19",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "epilogue": "В Курии слушают — и уже не верят. Легионы: Почти личная армия, приказ не обсуждают. Сенат: Курия враждебна и саботирует решения. Народ: Народ благосклонен и ценит стабильность. Заговор: План созревает: ищут окно атаки.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 84,
+          "max": 91
+        },
+        "senate": {
+          "min": 14,
+          "max": 18
+        },
+        "people": {
+          "min": 75,
+          "max": 79
+        },
+        "conspiracy": {
+          "min": 64,
+          "max": 71
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:0-20|people:61-80|conspiracy:61-80"
+      ],
+      "pointCount": 3
+    },
+    {
+      "id": "ending_area_20",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 81
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "epilogue": "Легионы: Почти личная армия, приказ не обсуждают. Сенат: Курия враждебна и саботирует решения. Народ: Народ благосклонен и ценит стабильность. Заговор: Сеть собирается, роли намечены.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 82,
+          "max": 96
+        },
+        "senate": {
+          "min": 11,
+          "max": 19
+        },
+        "people": {
+          "min": 71,
+          "max": 80
+        },
+        "conspiracy": {
+          "min": 45,
+          "max": 60
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:0-20|people:61-80|conspiracy:41-60"
+      ],
+      "pointCount": 6
+    },
+    {
+      "id": "ending_area_21",
+      "title": "Город доволен, ножи в ножнах",
+      "subtitle": "Ощутимая стабильность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 61
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "epilogue": "Легионы: Армия — надёжная опора власти. Сенат: Большинство Сената работает в связке. Народ: Народ благосклонен и ценит стабильность. Заговор: Есть кружки и клятвы, но нет решимости.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 74,
+          "max": 79
+        },
+        "senate": {
+          "min": 61,
+          "max": 69
+        },
+        "people": {
+          "min": 76,
+          "max": 79
+        },
+        "conspiracy": {
+          "min": 21,
+          "max": 36
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:61-80|people:61-80|conspiracy:21-40"
+      ],
+      "pointCount": 4
+    },
+    {
+      "id": "ending_area_22",
+      "title": "Город доволен, ножи в ножнах",
+      "subtitle": "Ощутимая стабильность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 61
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 0
+        }
+      },
+      "epilogue": "Легионы: Армия — надёжная опора власти. Сенат: Большинство Сената работает в связке. Народ: Народ благосклонен и ценит стабильность. Заговор: Лишь шёпот и речи, без единого плана.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 70,
+          "max": 84
+        },
+        "senate": {
+          "min": 63,
+          "max": 80
+        },
+        "people": {
+          "min": 71,
+          "max": 84
+        },
+        "conspiracy": {
+          "min": 9,
+          "max": 18
+        }
+      },
+      "mergedCombinations": [
+        "legions:81-100|senate:61-80|people:61-80|conspiracy:0-20",
+        "legions:61-80|senate:61-80|people:81-100|conspiracy:0-20",
+        "legions:61-80|senate:61-80|people:61-80|conspiracy:0-20"
+      ],
+      "pointCount": 8
+    },
+    {
+      "id": "ending_area_23",
+      "title": "Сеть при балансе сделка без любви",
+      "subtitle": "Легионы: Опора режима | Народ: Народный вождь",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "epilogue": "Легионы: Армия — надёжная опора власти. Сенат: Торг возможен: уступки меняют голоса. Народ: Толпа на твоей стороне почти безусловно. Заговор: Сеть собирается, роли намечены.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 70,
+          "max": 80
+        },
+        "senate": {
+          "min": 42,
+          "max": 59
+        },
+        "people": {
+          "min": 82,
+          "max": 88
+        },
+        "conspiracy": {
+          "min": 43,
+          "max": 66
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:41-60|people:81-100|conspiracy:61-80",
+        "legions:61-80|senate:41-60|people:81-100|conspiracy:41-60"
+      ],
+      "pointCount": 11
+    },
+    {
+      "id": "ending_area_24",
+      "title": "Город доволен, ножи в ножнах",
+      "subtitle": "Ощутимая стабильность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "epilogue": "Город сыт — и потому терпелив. Легионы: Армия — надёжная опора власти. Сенат: Торг возможен: уступки меняют голоса. Народ: Толпа на твоей стороне почти безусловно. Заговор: Есть кружки и клятвы, но нет решимости.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 70,
+          "max": 80
+        },
+        "senate": {
+          "min": 43,
+          "max": 65
+        },
+        "people": {
+          "min": 82,
+          "max": 84
+        },
+        "conspiracy": {
+          "min": 24,
+          "max": 40
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:61-80|people:81-100|conspiracy:21-40",
+        "legions:61-80|senate:41-60|people:81-100|conspiracy:21-40"
+      ],
+      "pointCount": 8
+    },
+    {
+      "id": "ending_area_25",
+      "title": "Сеть при балансе сделка без любви",
+      "subtitle": "Легионы: Опора режима | Народ: Благосклонность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "epilogue": "Легионы: Армия — надёжная опора власти. Сенат: Торг возможен: уступки меняют голоса. Народ: Народ благосклонен и ценит стабильность. Заговор: Сеть собирается, роли намечены.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 70,
+          "max": 79
+        },
+        "senate": {
+          "min": 41,
+          "max": 53
+        },
+        "people": {
+          "min": 69,
+          "max": 80
+        },
+        "conspiracy": {
+          "min": 41,
+          "max": 60
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:41-60|people:61-80|conspiracy:41-60"
+      ],
+      "pointCount": 13
+    },
+    {
+      "id": "ending_area_26",
+      "title": "Город доволен, ножи в ножнах",
+      "subtitle": "Ощутимая стабильность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "epilogue": "Легионы: Армия — надёжная опора власти. Сенат: Торг возможен: уступки меняют голоса. Народ: Народ благосклонен и ценит стабильность. Заговор: Есть кружки и клятвы, но нет решимости.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 70,
+          "max": 80
+        },
+        "senate": {
+          "min": 41,
+          "max": 59
+        },
+        "people": {
+          "min": 66,
+          "max": 79
+        },
+        "conspiracy": {
+          "min": 22,
+          "max": 39
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:41-60|people:61-80|conspiracy:21-40"
+      ],
+      "pointCount": 20
+    },
+    {
+      "id": "ending_area_27",
+      "title": "Город доволен, ножи в ножнах",
+      "subtitle": "Ощутимая стабильность",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 41
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 0
+        }
+      },
+      "epilogue": "Легионы: Армия — надёжная опора власти. Сенат: Торг возможен: уступки меняют голоса. Народ: Народ благосклонен и ценит стабильность. Заговор: Лишь шёпот и речи, без единого плана.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 71,
+          "max": 80
+        },
+        "senate": {
+          "min": 39,
+          "max": 59
+        },
+        "people": {
+          "min": 64,
+          "max": 84
+        },
+        "conspiracy": {
+          "min": 9,
+          "max": 19
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:41-60|people:81-100|conspiracy:0-20",
+        "legions:61-80|senate:41-60|people:61-80|conspiracy:0-20",
+        "legions:61-80|senate:21-40|people:61-80|conspiracy:0-20"
+      ],
+      "pointCount": 10
+    },
+    {
+      "id": "ending_area_28",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "epilogue": "На Форуме это приняли как справедливость; в Курии — как пощёчину. Легионы: Армия — надёжная опора власти. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Толпа на твоей стороне почти безусловно. Заговор: План созревает: ищут окно атаки.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 74,
+          "max": 79
+        },
+        "senate": {
+          "min": 21,
+          "max": 40
+        },
+        "people": {
+          "min": 82,
+          "max": 93
+        },
+        "conspiracy": {
+          "min": 63,
+          "max": 80
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:21-40|people:81-100|conspiracy:61-80"
+      ],
+      "pointCount": 8
+    },
+    {
+      "id": "ending_area_29",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "epilogue": "На Форуме это приняли как справедливость; в Курии — как пощёчину. Легионы: Армия — надёжная опора власти. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Толпа на твоей стороне почти безусловно. Заговор: Сеть собирается, роли намечены.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 77,
+          "max": 79
+        },
+        "senate": {
+          "min": 29,
+          "max": 40
+        },
+        "people": {
+          "min": 82,
+          "max": 84
+        },
+        "conspiracy": {
+          "min": 43,
+          "max": 58
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:21-40|people:81-100|conspiracy:41-60"
+      ],
+      "pointCount": 4
+    },
+    {
+      "id": "ending_area_30",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 61
+        }
+      },
+      "epilogue": "В Курии слушают — и уже не верят. Легионы: Армия — надёжная опора власти. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Народ благосклонен и ценит стабильность. Заговор: План созревает: ищут окно атаки.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 70,
+          "max": 80
+        },
+        "senate": {
+          "min": 8,
+          "max": 36
+        },
+        "people": {
+          "min": 69,
+          "max": 80
+        },
+        "conspiracy": {
+          "min": 62,
+          "max": 80
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:21-40|people:61-80|conspiracy:61-80",
+        "legions:61-80|senate:0-20|people:61-80|conspiracy:61-80"
+      ],
+      "pointCount": 10
+    },
+    {
+      "id": "ending_area_31",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 41
+        }
+      },
+      "epilogue": "Легионы: Армия — надёжная опора власти. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Народ благосклонен и ценит стабильность. Заговор: Сеть собирается, роли намечены.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 71,
+          "max": 80
+        },
+        "senate": {
+          "min": 18,
+          "max": 39
+        },
+        "people": {
+          "min": 69,
+          "max": 80
+        },
+        "conspiracy": {
+          "min": 41,
+          "max": 59
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:21-40|people:61-80|conspiracy:41-60",
+        "legions:61-80|senate:0-20|people:61-80|conspiracy:41-60"
+      ],
+      "pointCount": 15
+    },
+    {
+      "id": "ending_area_32",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 21
+        },
+        "people": {
+          "operator": ">=",
+          "value": 61
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 21
+        }
+      },
+      "epilogue": "Легионы: Армия — надёжная опора власти. Сенат: Холодный мир: слушают, но сопротивляются. Народ: Народ благосклонен и ценит стабильность. Заговор: Есть кружки и клятвы, но нет решимости.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 75,
+          "max": 79
+        },
+        "senate": {
+          "min": 26,
+          "max": 37
+        },
+        "people": {
+          "min": 64,
+          "max": 77
+        },
+        "conspiracy": {
+          "min": 24,
+          "max": 39
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:21-40|people:61-80|conspiracy:21-40"
+      ],
+      "pointCount": 5
+    },
+    {
+      "id": "ending_area_33",
+      "title": "Улица за вождя, Курия против него",
+      "subtitle": "Порядок против свободы, воля толпы против достоинства знати",
+      "conditions": {
+        "legions": {
+          "operator": ">=",
+          "value": 61
+        },
+        "senate": {
+          "operator": ">=",
+          "value": 0
+        },
+        "people": {
+          "operator": ">=",
+          "value": 81
+        },
+        "conspiracy": {
+          "operator": ">=",
+          "value": 81
+        }
+      },
+      "epilogue": "На Форуме это приняли как справедливость; в Курии — как пощёчину. Легионы: Армия — надёжная опора власти. Сенат: Курия враждебна и саботирует решения. Народ: Толпа на твоей стороне почти безусловно. Заговор: Всё готово: осталось выбрать час и место.",
+      "image": null,
+      "areaBounds": {
+        "legions": {
+          "min": 74,
+          "max": 79
+        },
+        "senate": {
+          "min": 13,
+          "max": 20
+        },
+        "people": {
+          "min": 74,
+          "max": 93
+        },
+        "conspiracy": {
+          "min": 86,
+          "max": 93
+        }
+      },
+      "mergedCombinations": [
+        "legions:61-80|senate:0-20|people:81-100|conspiracy:81-100",
+        "legions:61-80|senate:0-20|people:61-80|conspiracy:81-100"
+      ],
+      "pointCount": 4
+    },
+    {
+      "id": "ending_assassinated",
+      "title": "Почти исполнено",
+      "subtitle": "Ночь важнее заседаний",
+      "conditions": {
+        "conspiracy": {
+          "operator": ">=",
+          "value": 85
+        }
+      },
+      "epilogue": "В Курии слушают — и уже не верят. Всё готово: осталось выбрать час и место.",
+      "image": null
+    },
+    {
+      "id": "ending_turn_6_warnings_c",
+      "title": "Почти исполнено",
+      "subtitle": "Ночь важнее заседаний",
+      "conditions": {},
+      "epilogue": "В Курии слушают — и уже не верят. Всё готово: осталось выбрать час и место."
+    },
+
+    {
+      "id": "ending_conspiracy_crushed",
+      "title": "Шёпот",
+      "subtitle": "Администрирование и долгая игра",
+      "conditions": {
+        "conspiracy": {
+          "operator": "<=",
+          "value": 20
+        }
+      },
+      "epilogue": "Спорят громко, но расходятся без клятв. Лишь шёпот и речи, без единого плана.",
+      "image": null
+    },
+    {
+      "id": "ending_left_rome",
+      "title": "Манёвр вне сетки",
+      "subtitle": "Рим остался без сцены",
+      "conditions": {
+        "conspiracy": {
+          "operator": ">=",
+          "value": 50
+        }
+      },
+      "epilogue": "Выход из Рима переносит развязку: прямой удар сорван, но баланс легионов, сената, народа и тени остаётся неустойчивым.",
+      "image": null
+    },
+    {
+      "id": "ending_turn_2_concession_c",
+      "title": "Манёвр вне сетки",
+      "subtitle": "Рим остался без сцены",
+      "conditions": {},
+      "epilogue": "Выход из Рима переносит развязку: прямой удар сорван, но баланс легионов, сената, народа и тени остаётся неустойчивым."
+    },
+    {
+      "id": "ending_default",
+      "title": "Смешанный исход",
+      "subtitle": "Ни одна из выделенных областей не сработала точно",
+      "conditions": {},
+      "epilogue": "Параметры остались в переходной зоне: конфликт отложен, но не снят.",
+      "image": null
+    }
+  ],
+  "realHistory": [
+    {
+      "turnId": "turn_1",
+      "title": "Принятие титула без условий",
+      "description": "Власть закрепляется максимально прямолинейно, вызывая тревогу в курии и подталкивая радикалов к решению действовать.",
+      "matchChoiceId": "turn_1_c",
+      "historicalNote": "Концентрация полномочий усиливала страх элиты перед «царской» властью под иным именем.",
+      "sourceRef": "src_1"
+    },
+    {
+      "turnId": "turn_4_cassius",
+      "title": "Критику игнорируют",
+      "description": "Резкие выступления противников остаются без ответа, что воспринимается как сигнал: компромисса не будет.",
+      "matchChoiceId": "turn_4_cassius_a",
+      "historicalNote": "Рост напряжения сопровождался ощущением, что публичные аргументы перестали работать.",
+      "sourceRef": "src_1"
+    },
+    {
+      "turnId": "turn_3_lupercalia",
+      "title": "Диадема отвергнута",
+      "description": "На празднике от символа верховной власти отказываются, выигрывая мгновение на площади, но не снимая подозрений курии.",
+      "matchChoiceId": "turn_3_lupercalia_c",
+      "historicalNote": "Эпизод с символом власти стал маркером болезненной реакции Рима на намёки на царство.",
+      "sourceRef": "src_2"
+    },
+    {
+      "turnId": "turn_6_warnings",
+      "title": "Сигналы заговора игнорируются",
+      "description": "Предупреждения и слухи не превращаются в меры безопасности; заговорщики получают уверенность, что день удара возможен.",
+      "matchChoiceId": "turn_6_warnings_c",
+      "historicalNote": "Предупреждения звучали, но не были превращены в жёсткий протокол.",
+      "sourceRef": "src_3"
+    },
+    {
+      "turnId": "turn_7_ides",
+      "title": "Поход в Сенат без охраны",
+      "description": "Решение идти демонстративно — без плотного сопровождения — оставляет врагам идеальные условия для удара.",
+      "matchChoiceId": "turn_7_ides_a",
+      "historicalNote": "Кульминация связана с посещением заседания и недостаточной защитой в решающий момент.",
+      "sourceRef": "src_3"
+    }
+  ],
+  "sources": [
+    {
+      "id": "src_1",
+      "type": "book",
+      "citation": "Плутарх. «Цезарь» (эпизоды о напряжении в Сенате)",
+      "url": null
+    },
+    {
+      "id": "src_2",
+      "type": "book",
+      "citation": "Светоний. «Божественный Юлий» (публичные церемонии)",
+      "url": null
+    },
+    {
+      "id": "src_3",
+      "type": "book",
+      "citation": "Аппиан. «Гражданские войны» (Иды марта)",
+      "url": null
+    }
+  ],
+  "aiConfig": {
+    "model": "placeholder-model",
+    "epochContext": "Римская Республика, 44 год до н.э. Язык лаконичный, без модернизмов.",
+    "newspaperStyle": "Acta Diurna: короткие сообщения, факты и формулы, без современной лексики.",
+    "negativePrompts": [
+      "Не использовать понятия и технологии после античности",
+      "Не добавлять христианские отсылки"
+    ],
+    "maxTokensPerGeneration": 150,
+    "temperature": 0.7
+  },
+  "endingsGenerationMeta": {
+    "sourceScenario": "caesar-v2.json",
+    "toneLegendFile": "tone_legend_caesar",
+    "allToneCombinations": 625,
+    "occupiedCombinations": 50,
+    "mergedAreas": 33,
+    "smallAreasMergedThreshold": 2
+  }
+}

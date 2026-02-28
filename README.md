@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Scenario Editor
 
-## Getting Started
+Standalone JSON editor for History's Edge scenarios.
 
-First, run the development server:
+## Quick Start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3001
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- JSON editor with CodeMirror 6 (syntax highlighting, linting)
+- Live preview of scenario structure
+- JSON Schema validation with AJV
+- File management (create, edit, save, delete)
+- Click elements in preview to jump to JSON source
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+scenario-editor/
+├── app/                  # Next.js pages
+│   ├── page.tsx         # Home
+│   ├── scenarios/       # Scenarios list
+│   ├── editor/[fileId]/ # Editor page
+│   └── api/scenarios/   # REST API
+├── components/editor/   # React components
+├── lib/                 # Validation & file I/O
+├── types/              # TypeScript types
+└── scenarios/          # JSON scenario files
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `GET /api/scenarios` - List all scenarios
+- `GET /api/scenarios/:id` - Get scenario JSON
+- `POST /api/scenarios` - Create new scenario
+- `PUT /api/scenarios/:id` - Update scenario
+- `DELETE /api/scenarios/:id` - Delete scenario
+- `POST /api/scenarios/validate` - Validate JSON
 
-## Deploy on Vercel
+## Development
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Place your scenario JSON files in `scenarios/` directory.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Example: `scenarios/my-scenario.json`
+
+Then edit at: http://localhost:3001/editor/my-scenario
+
+## Build
+
+```bash
+npm run build
+npm start
+```
+
+## Extracted from History's Edge
+
+This is a standalone extraction. Removed:
+- Game engine (processTurn, checkTriggers)
+- Real history simulation
+- Admin auth & database
+- Graph viewer
+
+Kept:
+- Full structural validation
+- ID reference checking
+- Turn routing validation
+- All UI components
