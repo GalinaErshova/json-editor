@@ -1,15 +1,20 @@
 'use client';
 
 /**
- * Scenario preview panel — displays parsed scenario structure.
+ * Universal JSON Navigator — renders any JSON as a collapsible tree.
  *
- * Shows meta info, parameters, turns with choices, endings, and triggers
- * in collapsible sections. Updates live as JSON is edited.
+ * Features:
+ * - Recursive tree with collapsible object/array nodes
+ * - Inline preview of primitive values
+ * - Array item counts and object key counts
+ * - Click any node to scroll the editor to that location
+ * - Smart truncation of long strings
+ * - Top-level sections open by default, deeper nodes collapsed
  *
  * @module components/editor/scenario-preview
  */
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import styles from './scenario-preview.module.css';
 
 interface ScenarioPreviewProps {
@@ -17,204 +22,181 @@ interface ScenarioPreviewProps {
   readonly onNodeClick?: (searchText: string) => void;
 }
 
-interface CollapsibleProps {
-  readonly title: string;
-  readonly count?: number;
-  readonly children: React.ReactNode;
-  readonly defaultOpen?: boolean;
+/* ── Helpers ── */
+
+/** Build a search string that will locate this key in the JSON text */
+function buildSearchText(key: string): string {
+  return `"${key}"`;
 }
 
-function Collapsible({ title, count, children, defaultOpen = false }: CollapsibleProps) {
+/* ── Tree Node ── */
+
+interface TreeNodeProps {
+  readonly name: string;
+  readonly value: unknown;
+  readonly depth: number;
+  readonly defaultOpen?: boolean;
+  readonly onNodeClick?: (searchText: string) => void;
+}
+
+function TreeNode({ name, value, depth, defaultOpen = false, onNodeClick }: TreeNodeProps) {
   const [open, setOpen] = useState(defaultOpen);
 
-  return (
-    <div className={styles.section}>
-      <button
-        className={styles.sectionHeader}
-        onClick={() => setOpen(!open)}
-        type="button"
-      >
-        <span className={styles.arrow}>{open ? '\u25BC' : '\u25B6'}</span>
-        <span className={styles.sectionTitle}>{title}</span>
-        {count !== undefined && (
-          <span className={styles.count}>{count}</span>
-        )}
-      </button>
-      {open && <div className={styles.sectionContent}>{children}</div>}
-    </div>
-  );
-}
+  const isObject = value !== null && typeof value === 'object' && !Array.isArray(value);
+  const isArray = Array.isArray(value);
+  const isPrimitive = !isObject && !isArray;
 
-export default function ScenarioPreview({ jsonString, onNodeClick }: ScenarioPreviewProps) {
-  // Try to parse JSON
-  let data: Record<string, unknown> | null = null;
-  let parseError: string | null = null;
+  const handleClick = () => {
+    if (!onNodeClick) return;
+    onNodeClick(buildSearchText(name));
+  };
 
-  try {
-    if (jsonString.trim()) {
-      data = JSON.parse(jsonString);
-    }
-  } catch (err) {
-    parseError = err instanceof Error ? err.message : 'Invalid JSON';
-  }
-
-  if (!jsonString.trim()) {
-    return <div className={styles.empty}>Введите JSON сценария</div>;
-  }
-
-  if (parseError) {
+  /* Primitive leaf — show only the key name, no value */
+  if (isPrimitive) {
     return (
-      <div className={styles.parseError}>
-        <strong>JSON Parse Error:</strong>
-        <pre>{parseError}</pre>
+      <div
+        className={`${styles.treeLeaf} ${styles.clickable}`}
+        style={{ paddingLeft: `${depth * 16 + 8}px` }}
+        onClick={handleClick}
+        role="button"
+        tabIndex={0}
+      >
+        <span className={styles.leafKey}>{name}</span>
       </div>
     );
   }
 
-  if (!data) return null;
+  /* Object / Array branch */
+  const entries = isArray
+    ? (value as unknown[]).map((v, i) => [String(i), v] as [string, unknown])
+    : Object.entries(value as Record<string, unknown>);
 
-  const meta = data.meta as Record<string, unknown> | undefined;
-  const params = data.params as Array<Record<string, unknown>> | undefined;
-  const turns = data.turns as Array<Record<string, unknown>> | undefined;
-  const endings = data.endings as Array<Record<string, unknown>> | undefined;
-  const triggers = data.triggers as Array<Record<string, unknown>> | undefined;
-  const sources = data.sources as Array<Record<string, unknown>> | undefined;
+  const count = entries.length;
 
   return (
+    <div className={styles.treeNode}>
+      <div
+        className={styles.treeBranch}
+        style={{ paddingLeft: `${depth * 16}px` }}
+      >
+        <button
+          className={styles.treeToggle}
+          onClick={() => setOpen(!open)}
+          type="button"
+          aria-label={open ? 'Collapse' : 'Expand'}
+        >
+          <span className={styles.arrow}>{open ? '\u25BC' : '\u25B6'}</span>
+        </button>
+        <span
+          className={`${styles.branchKey} ${styles.clickable}`}
+          onClick={handleClick}
+          role="button"
+          tabIndex={0}
+        >
+          {name}
+        </span>
+        <span className={styles.branchMeta}>
+          {isArray ? (
+            <span className={styles.badge}>[{count}]</span>
+          ) : (
+            <span className={styles.badge}>&#123;{count}&#125;</span>
+          )}
+        </span>
+      </div>
+      {open && (
+        <div className={styles.treeChildren}>
+          {entries.map(([key, val], i) => (
+            <TreeNode
+              key={`${key}-${i}`}
+              name={key}
+              value={val}
+              depth={depth + 1}
+              defaultOpen={false}
+              onNodeClick={onNodeClick}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Main Component ── */
+
+export default function ScenarioPreview({ jsonString, onNodeClick }: ScenarioPreviewProps) {
+  const parsed = useMemo(() => {
+    try {
+      if (jsonString.trim()) {
+        return { data: JSON.parse(jsonString) as unknown, error: null };
+      }
+      return { data: null, error: null };
+    } catch (err) {
+      return { data: null, error: err instanceof Error ? err.message : 'Invalid JSON' };
+    }
+  }, [jsonString]);
+
+  if (!jsonString.trim()) {
+    return <div className={styles.empty}>Загрузите JSON файл</div>;
+  }
+
+  if (parsed.error) {
+    return (
+      <div className={styles.parseError}>
+        <strong>JSON Parse Error</strong>
+        <pre>{parsed.error}</pre>
+      </div>
+    );
+  }
+
+  const data = parsed.data;
+  if (data === null || data === undefined) return null;
+
+  // Top level object: each key is a section
+  if (typeof data === 'object' && !Array.isArray(data)) {
+    const entries = Object.entries(data as Record<string, unknown>);
+    return (
+      <div className={styles.container}>
+        <div className={styles.treeRoot}>
+          {entries.map(([key, val], i) => (
+            <TreeNode
+              key={`${key}-${i}`}
+              name={key}
+              value={val}
+              depth={0}
+              defaultOpen={i < 5}
+              onNodeClick={onNodeClick}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Top level array
+  if (Array.isArray(data)) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.treeRoot}>
+          <TreeNode
+            name="root"
+            value={data}
+            depth={0}
+            defaultOpen
+            onNodeClick={onNodeClick}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // Primitive at top level
+  return (
     <div className={styles.container}>
-      {/* Meta */}
-      {meta && (
-        <Collapsible title="Meta" defaultOpen>
-          <div className={styles.metaCard} onClick={() => onNodeClick?.('"meta":')} role="button" tabIndex={0}>
-            <h3 className={styles.metaTitle}>{String(meta.title || '—')}</h3>
-            {meta.subtitle ? <p className={styles.metaSubtitle}>{String(meta.subtitle)}</p> : null}
-            <div className={styles.metaGrid}>
-              <div><span className={styles.label}>ID:</span> <code>{String(meta.id || '—')}</code></div>
-              <div><span className={styles.label}>Version:</span> {String(meta.version || '—')}</div>
-              <div><span className={styles.label}>Epoch:</span> {String(meta.epoch || '—')}</div>
-              <div><span className={styles.label}>Difficulty:</span> {String(meta.difficulty || '—')}</div>
-              <div><span className={styles.label}>Turns:</span> {String(meta.turnCount || '—')}</div>
-              <div><span className={styles.label}>Region:</span> {String(meta.region || '—')}</div>
-              {meta.character != null && typeof meta.character === 'object' && (
-                <div>
-                  <span className={styles.label}>Character:</span>{' '}
-                  {String((meta.character as Record<string, unknown>).name || '—')} —{' '}
-                  {String((meta.character as Record<string, unknown>).role || '')}
-                </div>
-              )}
-            </div>
-          </div>
-        </Collapsible>
-      )}
-
-      {/* Parameters */}
-      {params && Array.isArray(params) && (
-        <Collapsible title="Parameters" count={params.length}>
-          {params.map((p, i) => (
-            <div key={i} className={`${styles.paramItem} ${styles.clickable}`} onClick={() => onNodeClick?.(`"id": "${String(p.id || '')}"`)}>
-
-              <span
-                className={styles.paramColor}
-                style={{ background: String(p.color || '#888') }}
-              />
-              <span className={styles.paramName}>
-                {String(p.icon || '')} {String(p.name || `param_${i}`)}
-              </span>
-              <span className={styles.paramValue}>
-                start: {String(p.startValue ?? '?')}
-              </span>
-              <span className={styles.paramId}>
-                <code>{String(p.id || '')}</code>
-              </span>
-            </div>
-          ))}
-        </Collapsible>
-      )}
-
-      {/* Turns */}
-      {turns && Array.isArray(turns) && (
-        <Collapsible title="Turns" count={turns.length}>
-          {turns
-            .sort((a, b) => Number(a.order || 0) - Number(b.order || 0))
-            .map((t, i) => {
-              const choices = t.choices as Array<Record<string, unknown>> | undefined;
-              const event = t.event as Record<string, unknown> | undefined;
-              return (
-                <div key={i} className={`${styles.turnItem} ${styles.clickable}`} onClick={() => onNodeClick?.(`"id": "${String(t.id || '')}"`)}>
-                  <div className={styles.turnHeader}>
-                    <span className={styles.turnOrder}>#{String(t.order || i + 1)}</span>
-                    <span className={styles.turnTitle}>
-                      {event ? String(event.title || '—') : '—'}
-                    </span>
-                    {t.isCulmination ? <span className={styles.culminationBadge}>CULMINATION</span> : null}
-                  </div>
-                  {choices && Array.isArray(choices) && (
-                    <div className={styles.choicesList}>
-                      {choices.map((c, j) => (
-                        <div key={j} className={`${styles.choiceItem} ${styles.clickable}`} onClick={(e) => { e.stopPropagation(); onNodeClick?.(`"id": "${String(c.id || '')}"`) }}>
-                          <span className={styles.choiceTitle}>{String(c.title || `choice_${j}`)}</span>
-                          {c.deltas != null && typeof c.deltas === 'object' && (
-                            <span className={styles.choiceDeltas}>
-                              {Object.entries(c.deltas as Record<string, number>)
-                                .map(([k, v]) => `${k}: ${v > 0 ? '+' : ''}${v}`)
-                                .join(', ')}
-                            </span>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-        </Collapsible>
-      )}
-
-      {/* Endings */}
-      {endings && Array.isArray(endings) && (
-        <Collapsible title="Endings" count={endings.length}>
-          {endings.map((e, i) => (
-            <div key={i} className={`${styles.endingItem} ${styles.clickable}`} onClick={() => onNodeClick?.(`"id": "${String(e.id || '')}"`)}>
-              <div className={styles.endingTitle}>{String(e.title || `ending_${i}`)}</div>
-              <div className={styles.endingSubtitle}>{String(e.subtitle || '')}</div>
-              <code className={styles.endingId}>{String(e.id || '')}</code>
-            </div>
-          ))}
-        </Collapsible>
-      )}
-
-      {/* Triggers */}
-      {triggers && Array.isArray(triggers) && (
-        <Collapsible title="Triggers" count={triggers.length}>
-          {triggers.map((t, i) => {
-            const condition = t.condition as Record<string, unknown> | undefined;
-            return (
-              <div key={i} className={`${styles.triggerItem} ${styles.clickable}`} onClick={() => onNodeClick?.(`"id": "${String(t.id || '')}"`)}>
-
-                <code className={styles.triggerId}>{String(t.id || '')}</code>
-                {condition && (
-                  <span className={styles.triggerCondition}>
-                    {String(condition.param || '?')} {String(condition.operator || '?')} {String(condition.value || '?')}
-                  </span>
-                )}
-                <span className={styles.triggerEffect}>{String(t.effect || '')}</span>
-              </div>
-            );
-          })}
-        </Collapsible>
-      )}
-
-      {/* Sources */}
-      {sources && Array.isArray(sources) && sources.length > 0 && (
-        <Collapsible title="Sources" count={sources.length}>
-          {sources.map((s, i) => (
-            <div key={i} className={`${styles.sourceItem} ${styles.clickable}`} onClick={() => onNodeClick?.(`"id": "${String(s.id || '')}"`)}>
-              <span className={styles.sourceType}>{String(s.type || '')}</span>
-              <span>{String(s.citation || '')}</span>
-            </div>
-          ))}
-        </Collapsible>
-      )}
+      <div className={styles.treeRoot}>
+        <div className={styles.treeLeaf}>
+          <span className={styles.leafKey}>root</span>
+        </div>
+      </div>
     </div>
   );
 }

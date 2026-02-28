@@ -1,8 +1,8 @@
 'use client';
 
 /**
- * Scenario Editor — single-page JSON editor.
- * Upload a scenario file, edit, validate, and download.
+ * JSON Editor — single-page editor for any JSON file.
+ * Upload a file, edit, validate (optionally with JSON Schema), and download.
  */
 
 import { useState, useCallback, useRef } from 'react';
@@ -21,36 +21,16 @@ interface ValidationError {
   readonly message: string;
 }
 
-const EMPTY_SCENARIO = JSON.stringify({
-  meta: {
-    id: "new-scenario",
-    version: "1.0",
-    title: "New Scenario",
-    subtitle: "",
-    description: "",
-    epoch: "modern",
-    region: "",
-    character: { name: "", role: "" },
-    conflictType: "war-vs-diplomacy",
-    difficulty: "medium",
-    turnCount: 1,
-    estimatedMinutes: 10,
-    tags: [],
-    locale: "ru",
-    author: { id: "author", name: "Author", verified: false }
-  },
-  briefing: { text: "", maxLength: 500 },
-  params: [],
-  turns: [],
-  triggers: [],
-  endings: [],
-  realHistory: []
-}, null, 2);
+const EMPTY_JSON = '{}';
 
 export default function EditorPage() {
-  const [content, setContent] = useState(EMPTY_SCENARIO);
-  const [fileName, setFileName] = useState('scenario.json');
+  const [content, setContent] = useState(EMPTY_JSON);
+  const [fileName, setFileName] = useState('document.json');
   const [isModified, setIsModified] = useState(false);
+
+  // JSON Schema (optional, loaded by user)
+  const [schema, setSchema] = useState<Record<string, unknown> | null>(null);
+  const [schemaName, setSchemaName] = useState<string | null>(null);
 
   const [validationErrors, setValidationErrors] = useState<readonly ValidationError[]>([]);
   const [validationWarnings, setValidationWarnings] = useState<readonly ValidationError[]>([]);
@@ -59,12 +39,15 @@ export default function EditorPage() {
 
   const scrollToRef = useRef<((searchText: string) => void) | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const schemaInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = useCallback((value: string) => {
     setContent(value);
     setIsModified(true);
     setHasValidated(false);
   }, []);
+
+  /* ── File upload ── */
 
   const handleUpload = useCallback(() => {
     fileInputRef.current?.click();
@@ -77,7 +60,6 @@ export default function EditorPage() {
     const reader = new FileReader();
     reader.onload = (ev) => {
       const text = ev.target?.result as string;
-      // Try to pretty-print if valid JSON
       try {
         const parsed = JSON.parse(text);
         setContent(JSON.stringify(parsed, null, 2));
@@ -91,28 +73,72 @@ export default function EditorPage() {
       setValidationWarnings([]);
     };
     reader.readAsText(file);
-
-    // Reset input so the same file can be selected again
     e.target.value = '';
   }, []);
+
+  /* ── Schema upload ── */
+
+  const handleSchemaUpload = useCallback(() => {
+    schemaInputRef.current?.click();
+  }, []);
+
+  const handleSchemaSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const text = ev.target?.result as string;
+      try {
+        const parsed = JSON.parse(text);
+        setSchema(parsed);
+        setSchemaName(file.name);
+        setHasValidated(false);
+      } catch {
+        alert('Failed to parse schema file. Make sure it is valid JSON.');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  }, []);
+
+  const handleSchemaClear = useCallback(() => {
+    setSchema(null);
+    setSchemaName(null);
+    setHasValidated(false);
+    setValidationErrors([]);
+    setValidationWarnings([]);
+  }, []);
+
+  /* ── Validation ── */
 
   const handleValidate = useCallback(async () => {
     let parsed: unknown;
     try {
       parsed = JSON.parse(content);
-    } catch {
-      setValidationErrors([{ path: 'root', message: 'Invalid JSON syntax' }]);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Invalid JSON syntax';
+      setValidationErrors([{ path: 'root', message: msg }]);
       setValidationWarnings([]);
       setHasValidated(true);
       return;
     }
 
+    // No schema — syntax is valid, done
+    if (!schema) {
+      setValidationErrors([]);
+      setValidationWarnings([]);
+      setHasValidated(true);
+      return;
+    }
+
+    // Validate against schema via API
     setIsValidating(true);
     try {
       const res = await fetch('/api/scenarios/validate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: parsed }),
+        body: JSON.stringify({ data: parsed, schema }),
       });
       const json = await res.json();
       setValidationErrors(json.errors || []);
@@ -123,7 +149,9 @@ export default function EditorPage() {
     } finally {
       setIsValidating(false);
     }
-  }, [content]);
+  }, [content, schema]);
+
+  /* ── Download ── */
 
   const handleDownload = useCallback(() => {
     const blob = new Blob([content], { type: 'application/json' });
@@ -135,10 +163,12 @@ export default function EditorPage() {
     URL.revokeObjectURL(url);
   }, [content, fileName]);
 
+  /* ── New ── */
+
   const handleNew = useCallback(() => {
-    if (isModified && !confirm('You have unsaved changes. Create a new scenario?')) return;
-    setContent(EMPTY_SCENARIO);
-    setFileName('scenario.json');
+    if (isModified && !confirm('There are unsaved changes. Create a new file?')) return;
+    setContent(EMPTY_JSON);
+    setFileName('document.json');
     setIsModified(false);
     setHasValidated(false);
     setValidationErrors([]);
@@ -147,7 +177,7 @@ export default function EditorPage() {
 
   return (
     <div className={styles.container}>
-      {/* Hidden file input */}
+      {/* Hidden file inputs */}
       <input
         ref={fileInputRef}
         type="file"
@@ -155,11 +185,18 @@ export default function EditorPage() {
         style={{ display: 'none' }}
         onChange={handleFileSelect}
       />
+      <input
+        ref={schemaInputRef}
+        type="file"
+        accept=".json,.schema.json"
+        style={{ display: 'none' }}
+        onChange={handleSchemaSelect}
+      />
 
       {/* Toolbar */}
       <div className={styles.toolbar}>
         <h1 className={styles.toolbarTitle}>
-          Scenario Editor
+          JSON Editor
           <span style={{ fontSize: '0.75rem', opacity: 0.5, marginLeft: '0.75rem', fontWeight: 400 }}>
             {fileName}
           </span>
@@ -183,6 +220,23 @@ export default function EditorPage() {
             Download
           </button>
         </div>
+      </div>
+
+      {/* Schema bar */}
+      <div className={styles.schemaBar}>
+        <span className={styles.schemaLabel}>Schema:</span>
+        {schemaName ? (
+          <>
+            <span className={styles.schemaName}>{schemaName}</span>
+            <button className={styles.schemaClear} onClick={handleSchemaClear} type="button">
+              &times;
+            </button>
+          </>
+        ) : (
+          <button className={styles.schemaUpload} onClick={handleSchemaUpload} type="button">
+            Load JSON Schema...
+          </button>
+        )}
       </div>
 
       {/* Split view */}
