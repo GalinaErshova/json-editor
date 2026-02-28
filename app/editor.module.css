@@ -1,19 +1,175 @@
-.container { padding: 1.5rem; max-width: 1800px; margin: 0 auto; }
-.toolbar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
-.toolbarTitle { flex: 1; font-size: 1.15rem; font-weight: 700; margin: 0; }
-.toolbarActions { display: flex; gap: 0.5rem; }
-.validateButton, .downloadButton { padding: 0.45rem 0.85rem; background: #1a1a1a; border: 1px solid #333; border-radius: 6px; font-size: 0.82rem; color: #fff; cursor: pointer; }
-.validateButton:hover, .downloadButton:hover { border-color: #0ea5e9; }
-.saveButton { padding: 0.45rem 1rem; background: #0ea5e9; color: #000; border: none; border-radius: 6px; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
-.saveButton:disabled { opacity: 0.4; cursor: not-allowed; }
-.statusIndicator { font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 4px; font-weight: 600; }
-.statusSaved { color: #2ecc71; background: rgba(46, 204, 113, 0.1); }
-.statusModified { color: #f1c40f; background: rgba(241, 196, 15, 0.1); }
-.statusError { color: #e74c3c; background: rgba(231, 76, 60, 0.1); }
-.splitContainer { display: flex; gap: 1rem; height: calc(100vh - 100px); min-height: 500px; }
-.editorPane { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-.previewPane { width: 380px; flex-shrink: 0; display: flex; flex-direction: column; gap: 0.75rem; }
-.previewScroll { flex: 1; overflow-y: auto; border: 1px solid #333; border-radius: 8px; background: #0a0a0a; }
-.validationScroll { max-height: 250px; overflow-y: auto; border: 1px solid #333; border-radius: 8px; background: #0a0a0a; padding: 0.5rem; }
-.loading { display: flex; align-items: center; justify-content: center; min-height: 400px; opacity: 0.5; }
-.error { padding: 1rem; background: rgba(231, 76, 60, 0.15); border: 1px solid #e74c3c; border-radius: 8px; color: #e74c3c; text-align: center; }
+/* ── Scenario Editor Page ── */
+
+.container {
+  padding: 1.5rem;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.toolbarTitle {
+  flex: 1;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toolbarActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.validateButton,
+.downloadButton {
+  padding: 0.45rem 0.85rem;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.validateButton:hover,
+.downloadButton:hover {
+  border-color: var(--accent);
+}
+
+.saveButton {
+  padding: 0.45rem 1rem;
+  background: var(--accent);
+  color: var(--background);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.saveButton:hover {
+  opacity: 0.85;
+}
+
+.saveButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Status Indicator ── */
+
+.statusIndicator {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.statusSaved {
+  color: var(--success);
+  background: rgba(39, 174, 96, 0.1);
+}
+
+.statusModified {
+  color: var(--warning);
+  background: rgba(243, 156, 18, 0.1);
+}
+
+.statusError {
+  color: var(--danger);
+  background: rgba(231, 76, 60, 0.1);
+}
+
+/* ── Split Layout ── */
+
+.splitContainer {
+  display: flex;
+  gap: 1rem;
+  height: calc(100vh - 100px);
+  min-height: 500px;
+}
+
+.editorPane {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.previewPane {
+  width: 380px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow: hidden;
+}
+
+.previewScroll {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+}
+
+.validationScroll {
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  padding: 0.5rem;
+}
+
+/* ── Loading/Error ── */
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  opacity: 0.5;
+}
+
+.error {
+  padding: 1rem;
+  background: rgba(231, 76, 60, 0.15);
+  border: 1px solid var(--danger);
+  border-radius: 8px;
+  color: var(--danger);
+  text-align: center;
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 1023px) {
+  .splitContainer {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .previewPane {
+    width: 100%;
+  }
+
+  .editorPane {
+    min-height: 400px;
+  }
+}
